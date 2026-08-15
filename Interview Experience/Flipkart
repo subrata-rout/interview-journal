@@ -1,0 +1,46 @@
+
+# Flipkart 3-5 yoe (Third party payroll)
+
+## Assessment
+   - Java Exception
+   - CompatibleFuture
+   - Spring Boot
+   - Microservices
+   - Coding question to find out bug & error
+
+
+### Technical Round 1
+
+#### Questions
+
+1. Tell me about your project and your contribution in it
+2. Why did you migrate to microservices
+3. Follow-up if testing is difficult in microservices why did you choose it
+4. How microservices communicate with each other
+5. why you choose kafka for async operations .
+6.  Doesn’t your synchronous service handles
+7. Notification service? if it can handle what’s the need of kafka
+8. What rest method did you use
+9. Why we use patch and put
+10. While using, post method, where it is created.
+11. How did you handle global exception
+12. Serialization related
+13. What is a topic in kafka
+14. Kafka partitioning
+15. What is the cluster metadata in kafka
+16. How does Kafka supports scalability
+17. What happens when a kafka broker goes down
+18. There are some microservices A, B and C. Service C becomes unavailable. What will happen?
+    How will you handle failure?
+19. How does  Kafka ensure data consistency?
+20. How does kafka handles data retention
+21. Public void test(){
+    Int x=10;
+    Employee e=new Employee ();
+    }
+    What will happen inside JVM? Stack, heap? Will they stay inside the stack/ heap or where will they go after execution?
+    What will happen to the object inside the heap after execution?
+22. {1, 0, 1, 0, 0, 1, 0, 1 } push all zero to end
+23. Find middle node - LinkedList problem
+
+g
