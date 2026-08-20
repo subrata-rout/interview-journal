@@ -1,0 +1,23 @@
+
+
+# Spring Transactions
+
+## Notes
+
+1. What is a transaction?
+   Think of it like you send 1000 rs to your friend and your friend receives it.
+   This is a transaction.
+   Now again you send 1k but this time your friend has not received,
+   and the money is also not credited to your account. Means it’s completely gone . to where no one knows.
+   So, the transaction ensures either all operations are successful, or none of them happen.
+   Without transaction db becomes inconsistent.
+
+   Spring provides @Transactional annotation to automatically manage db transactions.
+
+2. How Transactional works?
+   @Transactional is a Spring annotation used to manage database transactions declaratively.
+   When a method annotated with @Transactional is called, Spring creates an AOP proxy around the bean.
+   The proxy starts a transaction before the method executes and either commits it if the method completes successfully or rolls it back if a runtime exception occurs.
+   This ensures the ACID properties of transactions and keeps the database consistent. We typically place @Transactional on service-layer methods because a single business operation often involves multiple repository calls that should succeed or fail together.
+
+3.
