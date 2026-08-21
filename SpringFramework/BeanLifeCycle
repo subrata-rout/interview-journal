@@ -1,0 +1,155 @@
+ # Spring Bean Life Cycle
+
+ 1. Instantiation
+ 2. Populating Properties
+ 3. BeanNameAware  (setBeanName())
+ 4. BeanFactoryAware (setBeanFactory())
+ 5. Pre- initialization BeanPostProcessors
+ 6. Initializing Bean (afterPropertiesSet())
+ 7. Custom init method
+ 8. Post- initialization BeanPostProcessor
+ 9. Bean In-use
+10. Destruction
+
+
+## Instantiation
+
+  This is the phase where Spring IoC container creates an instance of the bean.
+  This can happen through constructor invocation or using a factory method.
+
+### Populating Properties
+
+   Once the bean is instantiated, the IoC container injects values into the bean's
+   properties and dependencies.
+
+### BeanNameAware
+
+   The purpose of this interface is to provide the bean with it's assigned name within the Spring IoC container.
+
+   public class MyBean implements BeanNameAware{
+     private String beanName;
+
+     @Override
+     public void setBeanName(String name){
+        this.beanName=name;
+        System.out.println("Bean name is set to: " + beanName);
+     }
+   }
+
+####Pre- Initialization BeanPostProcessor
+
+   If there are any classes that implement the BeanPostProcessor interface,
+   the postProcessBeforeInitialization method is invoked before the actual initialization of the bean.
+
+   Developers can use this phase to perform custom initialization logic
+
+   public class CustomBeanPostProcessor implements BeanPostProcessor {
+     @Override
+     public object postProcessBeforeInitialization (Object bean, String beanName){
+       //perform pre-initialization processing on the bean
+
+       System.out.println("Before Initialization: " + beanName);
+
+       //Return the modified or original bean instance
+       return bean;
+     }
+
+     @Override
+     public Object postProcessAfterInitialization (Object bean, String beanName){
+       //Perform post-initialization processing on the bean
+
+       System.out.println("After Initialization: " + beanName);
+
+       // Return post-initialization processing on the bean
+       return bean;
+
+     }
+   }
+
+##### Initializing Bean
+
+   After the properties are set, the init method (if configured) is called,
+   or if the bran implements InitializingBean interface,
+   the afterPropertiesSet method is invoked.
+
+   public class MyBean implements initializingBean {
+     private String message;
+
+     //Setter method for the 'message' properties
+
+     public void setMessage (String message){
+     this.message = message;
+
+     }
+     //custom initialization logic using InitializingBean
+     @Override
+     public void afterPropertiesSet() throws Exception {
+       System.out.println("Bean is being initialized. " + "Custom message: " + message);
+       //Additional initialization logic can go here
+     }
+   }
+
+   here, MyBean class implements the initializingBean interface, and the afterPropertiesSet method is overridden.
+
+
+##### Initialization
+
+   After the properties are set, the init method (if configured) is called,
+   or if the bean implements the InitializingBean interface the afterPropertiesSet method is invoked.
+
+   public class MyBean {
+     private String message;
+
+     //setter method for the 'message' property
+
+     public void setMessage(String message){
+     this.message = message ;
+     }
+
+    //custom initialization logic using init method
+
+    public void customInitMethod() {
+      System.out.println("Bean is being initialized" + "Custom message : " + message);
+
+      //Additional initialization logic go here
+    }
+   }
+
+###### Post-initialization BeanPostProcessors
+
+   If there are any classes implementing the beanPostProcessor interface,
+   the postProcessAfterInitialization method is invoked after after the bean is initialized.
+
+   public class CustomBeanPostProcessor implements BeanPostProcessor {
+     @Override
+     public Object postProcessBeforeInitialization (Object bean, String beanName){
+       //Perform pre- initialization processing on the bean
+       System.out.println ("After Initialization : " + beanName);
+       return bean;
+
+       //Return the modified or original bean instance
+     }
+   }
+
+   Developer can use this phase to perform custom logic after the bean has been fully initialized.
+
+
+###### In Use
+
+   The bean is now ready for use by the application.
+   Clients can obtain can object references to the bean and use it's functionality.
+
+####### Destruction
+
+   When the application context is shutting down, beans that implement
+   the DisposableBean interface have their destroy method called.
+
+    public class MyBean implements DisposableBean {
+      //Custom cleanup logic using DisposableBean
+      @Override
+      public void destroy() throws Exception {
+      System.out.println("Bean is being destroyed. ");
+
+      //Additional cleanup logic can go here
+      }
+    }
