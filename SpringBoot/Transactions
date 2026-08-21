@@ -17,7 +17,129 @@
 2. How Transactional works?
    @Transactional is a Spring annotation used to manage database transactions declaratively.
    When a method annotated with @Transactional is called, Spring creates an AOP proxy around the bean.
-   The proxy starts a transaction before the method executes and either commits it if the method completes successfully or rolls it back if a runtime exception occurs.
-   This ensures the ACID properties of transactions and keeps the database consistent. We typically place @Transactional on service-layer methods because a single business operation often involves multiple repository calls that should succeed or fail together.
+   The proxy starts a transaction before the method executes and either commits it if the method completes successfully
+   or rolls it back if a runtime exception occurs.
+   This ensures the ACID properties of transactions and keeps the database consistent.
+   We typically place @Transactional on service-layer methods because a single business operation often involves
+   multiple repository calls that should succeed or fail together.
 
-3.
+3. Why use @Transactional?
+   Because it automatically manages transactions, ensuring all database operations either complete successfully together
+   or are rolled back together, maintaining data consistency.
+
+4. Where should @Transactional be placed?
+   Prefer the Service layer, because a business operation may involve multiple repository calls that should succeed or
+   fail as one unit.
+
+5. Why not in Repository?
+   A repository usually performs a single database operation. Business logic often spans multiple repositories,
+   so transaction boundaries belong in the service layer.
+
+6. Why does Spring use proxies?
+   Spring uses proxies to intercept method calls and apply additional behavior such as transaction management, logging,
+   security, caching, or asynchronous execution without modifying the original business logic.
+
+7. Does Spring modify my original class?
+   No. Spring creates a proxy object around the original bean.
+   The proxy method calls, executes additional logic, and then delegates the call to the original object it intercepts .
+
+8. Why doesn't @Transactional work on self-invocation?
+   Because a method calling another method in the same class is a normal Java call.
+   It bypasses the Spring proxy,
+   so the transactional interceptor never gets a chance to start a transaction.
+   Spring AOP is a programming approach that lets us apply cross-cutting concerns such as transaction management,
+   logging, security, caching, and auditing without changing the business logic. Spring implements AOP using proxies.
+   Instead of the client calling the target object directly, it calls a proxy object.
+   The proxy intercepts the method call, executes additional logic like starting a transaction or logging,
+   delegates the call to the target method, and then performs post-processing such as commit or rollback.
+   Spring uses JDK Dynamic Proxies when the bean implements an interface, and CGLIB proxies when it doesn't.
+
+   - begin transaction
+   - commit
+   - rollback
+
+   Spring intercepts your method call.
+   Think of the proxy as a security guard.
+
+9. What is a Proxy?
+   A proxy is simply another object that stands in front of the original object.
+
+10. What is the default propagation?
+   Propagation.REQUIRED.
+   It joins an existing transaction if one is present; otherwise, it starts a new transaction.
+
+11. Difference between REQUIRED and REQUIRES_NEW?
+    REQUIRED participates in the current transaction if one exists. REQUIRES_NEW always suspends the current transaction (if any) and starts a completely new, independent transaction.
+
+12. When does Spring roll back a transaction?
+
+   By default, Spring rolls back on RuntimeException and Error. Checked exceptions do not trigger rollback unless configured using rollbackFor.
+   Why does @Transactional fail when a method calls another transactional method within the same class? How do you fix it?
+
+   @Transactional works through Spring AOP proxies. The proxy intercepts method calls, starts a transaction before the method executes, and commits or rolls back the transaction afterward. When one method in the same class directly calls another method, it's a normal Java method call (this.method()), so the call bypasses the Spring proxy. Since the proxy is not involved, Spring never gets a chance to start the transaction, and the @Transactional annotation is ignored. To fix this, we should ensure the call goes through the Spring proxy, typically by moving the transactional method to another Spring-managed bean or by obtaining the proxied bean instead of calling the method directly.
+
+13.Will private methods work with @Transactional?
+   No,
+   The proxy cannot intercept private methods because they cannot be overridden.
+
+14.Will final methods work?
+   With CGLIB proxies, no.
+   CGLIB creates a subclass and overrides methods.
+   A final method cannot be overridden.
+   So the proxy cannot add transactional behavior.
+
+   Transaction propagation defines how a transactional method should behave when it is called from another
+   transactional method.
+   It determines whether the method should join the existing transaction, create a new transaction,
+   suspend the existing transaction, or execute without a transaction.
+
+   The default is REQUIRED, which joins the existing transaction if one exists, otherwise creates a new one.
+
+   REQUIRES_NEW always creates an independent transaction by suspending the current one.
+
+   REQUIRED- Joins an existing transaction or creates if none exists
+
+    REQUIRES_NEW - suspends if any existing transaction exists and creates a complete new, independent transaction
+
+    SUPPORTS- Use the existing transaction if there is one; otherwise run without a transaction.
+
+    MANDATORY- A transaction must already exist.
+
+    NOT_SUPPORTED -Don't run inside a transaction.If a transaction already exists, Spring suspends it temporarily.
+
+    NEVER-This method must not run inside a transaction.
+
+    NESTED -Run inside the existing transaction using a savepoint.
+
+
+15.What is the "Self-Invocation" trap, and how do you resolve it?
+   Self-invocation occurs when a method in a Spring bean calls another method of the same bean directly.
+   Since the call is made directly using this, it bypasses the Spring AOP proxy. Because @Transactional is applied
+   through the proxy, the transactional advice on the called method is not executed. The preferred solution is to move
+   the transactional method to another Spring-managed bean and call it through that bean, ensuring the call passes
+   through the proxy. Another option is to obtain the proxied instance, but separating the responsibility into another
+   service is generally cleaner.
+
+16.How does Spring decide which TransactionManager to use?
+   When @Transactional is used, Spring's transaction interceptor delegates transaction management to a
+   PlatformTransactionManager. If a transaction manager is explicitly specified using the transactionManager attribute,
+   Spring uses that bean. Otherwise, Spring resolves an appropriate transaction manager from the application context.
+   In a typical Spring Boot application with a single JPA datasource, Boot auto-configures a JpaTransactionManager,
+   so @Transactional can use it by default. If multiple transaction managers exist, we can use @Primary to define the
+   default or explicitly specify the required transaction manager in @Transactional
+
+17.How does spring @Transactional rollback work internally? And common pitfalls
+
+   @Transactional is implemented through Spring's AOP proxy. When a transactional method is called through the proxy,
+   the transaction interceptor starts a transaction. If the method completes successfully, the transaction is committed.
+   If an exception is thrown, Spring evaluates its rollback rules. By default, it rolls back for RuntimeException and
+   Error, but not checked exceptions. We can customize this using rollbackFor and noRollbackFor.
+   Common pitfalls include self-invocation, because it bypasses the proxy; catching an exception inside
+   the transactional method, which can prevent Spring from detecting the failure; expecting checked exceptions
+   to automatically cause rollback; putting @Transactional on private methods; keeping transactions open during slow
+   external calls; and assuming a database rollback can undo an external API operation.
+
+  Also, REQUIRES_NEW creates an independent transaction, and @Transactional doesn't provide a distributed transaction
+  across microservices."
+
+
