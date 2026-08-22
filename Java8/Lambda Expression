@@ -1,0 +1,39 @@
+
+
+#  Lambda Expressions
+
+   Lambda is an Anonymous function, means it does not belong to any class and do not have any name.
+   ( Function with a name )
+   Lambda expression is mainly used to implements functional interfaces.
+
+## Functional Interface
+
+   An interface that contains exactly one abstract method  is known as a functional interface.
+
+       interface MyFunctionalInterface{
+          public void execute();
+       }
+
+       by default it is abstract.
+       Abstract -> a method with no implementation
+
+   Functional interface can have any number of default, static method but c an contain only one abstract method.
+
+### Lambda vs Method
+
+    Method is always belongs to class or objects in java where as Lambda does not belong to any class or objects.
+    Method has the main parts;
+    - Name
+    - Parameter List
+    - Body
+    - Return Type
+
+    public int addition ( int a, int b){
+       return a + b ;
+    }
+
+    Lambda Expression main parts;
+    - No Name ( As Lambda is an anonymous function so no need to have a name)
+    - Parameter List
+    - Body ( This is the main part of the function)
+    - No Return Type
