@@ -1,0 +1,30 @@
+
+#  Spring IoC Container (Inversion of Control)
+
+   Spring IoC container is the core of spring framework.
+   It creates objects, configures them and manages their entire life cycle.
+   The container utilizes Dependency Injection (DI) for managing components and their dependencies.
+
+   Information about objects, knows as Beans, is obtained from configuration files (XML),Java code or Java Annotations.
+   IoC is achieved as developers do not control the lifecycle of java objects; instead, the Container manages it.
+
+## Without IoC
+
+   Without inversion of control, you are in charge of the creation of objects.
+   In an inversion of control scenario a framework is in charge to create instances of a class.
+
+   In the traditional approach, obtaining an address instance for an Employee would involve
+   creating a new instance of the Address class.
+   However, when using Spring, the framework takes care of creating all dependent objects for us,
+   eliminating the need for manual object instantiation.
+
+### How to achieve IoC
+
+    Dependency Injection is the method through which IoC can be achieved.
+
+#### Benefits of IoC
+
+    - All the classes and their lifecycle will be managed by Spring from creating to destruction.
+    - Loose coupling between classes.
+    - Better testability, By using interfaces in the constructor, we can effortlessly
+      substitute the implementation with a mock implementation
