@@ -1,0 +1,172 @@
+
+
+1. What is Docker?
+   Before Docker, applications often behaved differently across environments because of differences in
+   operating systems, installed libraries, or runtime versions. Docker solves this by packaging everything
+   the application needs into an isolated container. Since every environment runs the same container image,
+   the application behaves consistently everywhere.
+
+   Docker is a platform used to build, package, ship, and run applications in isolated containers.
+
+2. Why do we need Docker?
+   We use Docker to create consistent development and deployment environments.
+   It eliminates the "works on my machine" problem by ensuring the application runs with the same dependencies
+   and configuration everywhere. Docker also simplifies deployment, enables faster onboarding for developers,
+   and integrates well with CI/CD pipelines.
+
+3. What problems does Docker solve?
+
+   Docker solves several common software development and deployment problems:
+
+   - It eliminates environment inconsistencies by packaging the application with all required dependencies.
+   - It simplifies dependency management because everything is included in the container image.
+   - It makes deployments predictable since the same image is used in every environment.
+   - It enables quick application startup compared to virtual machines.
+   - It improves resource utilization because containers share the host operating system kernel.
+   - It integrates well with CI/CD pipelines, making automated builds and deployments easier.
+
+4. Difference between Docker and Virtual Machine?
+   The main difference is that a Virtual Machine virtualizes the entire hardware and runs
+   a complete guest operating system, whereas Docker containers share the host operating system kernel and
+   only package the application along with its dependencies.
+
+   Because containers don't require a separate operating system, they start much faster, consume fewer resources,
+   and allow higher application density on the same machine. Virtual Machines provide stronger isolation but are
+   heavier in terms of CPU, memory, and storage.
+
+
+   Architecture Comparison
+   Virtual Machine
+   +--------------------------------+
+   | Application                     |
+   +--------------------------------+
+   | Java, Libraries                 |
+   +--------------------------------+
+   | Guest Operating System          |
+   +--------------------------------+
+   | Hypervisor (VMware/VirtualBox)  |
+   +--------------------------------+
+   | Host Operating System           |
+   +--------------------------------+
+   | Physical Hardware               |
+   +--------------------------------+
+
+   Each VM has:
+
+   Its own OS
+   Own kernel
+   Own memory allocation
+   Own storage
+
+   Running 5 VMs means 5 operating systems
+
+   Docker
+   +--------------------------------+
+   | Container 1 (App + Java)        |
+   +--------------------------------+
+   | Container 2 (App + Java)        |
+   +--------------------------------+
+   | Container 3 (App + Java)        |
+   +--------------------------------+
+   | Docker Engine                   |
+   +--------------------------------+
+   | Host Operating System Kernel    |
+   +--------------------------------+
+   | Physical Hardware               |
+   +--------------------------------+
+
+   Containers share the host OS kernel.
+
+   No separate operating system inside each container.
+
+5. What is a Docker Image?
+
+   A Docker Image is a read-only, immutable template that contains everything required to run an application,
+   such as the application code, runtime, libraries, dependencies, and configuration.
+
+   A container is created from this image. We can create multiple containers from the same image.
+   A Docker Image is an immutable, read-only package containing the application and everything it needs to run,
+   from which one or more containers can be created.
+
+6. What is a Docker Container?
+   A Docker Container is a running, isolated instance of a Docker Image. It contains the application process
+   along with the image's filesystem and configuration, and it runs in isolation while sharing the
+   host machine's OS kernel.
+
+7. What is Docker Hub?
+   Docker Hub is a cloud-based public container registry provided by Docker. It is used to store, share, pull,
+   and distribute Docker images. Developers can push their own images to Docker Hub and pull existing images such as
+   MySQL, Redis, Nginx, or Java runtime images.
+
+8. What is a Registry?
+   A Docker Registry is a storage and distribution system for Docker images. It allows us to push images to a
+   central location and pull them whenever we need them. Docker Hub is one example of a public Docker registry,
+   while companies can also run or use private registries for their application images.
+
+9. Explain Docker architecture.
+   Docker follows a client-server architecture. The main components are the Docker Client, Docker Daemon, Docker Images, Containers, and Docker Registry.
+
+   The Docker Client is what we use to execute commands such as docker build, docker pull, and docker run.
+   The client communicates with the Docker Daemon, which is responsible for building images, creating and running
+   containers, and managing networks and volumes. If an image is not available locally, the daemon can pull it from a
+   container registry such as Docker Hub.
+
+                         Developer
+                            |
+                            | docker run
+                            | docker build
+                            | docker pull
+                            ↓
+                     +---------------+
+                     | Docker Client |
+                     |   Docker CLI  |
+                     +---------------+
+                            |
+                            | Docker API
+                            ↓
+                   +-------------------+
+                   |   Docker Daemon   |
+                   |     dockerd       |
+                   +-------------------+
+                      /      |       \
+                     /       |        \
+                    ↓        ↓         ↓
+               Containers  Images   Networks/
+                                   Volumes
+                    |
+                    |
+                    ↓
+             Application Running
+
+
+                   Docker Registry
+                   (Docker Hub)
+                         ↑
+                         |
+                  pull / push
+                         |
+                  Docker Daemon
+
+
+10. What is the Docker daemon?
+
+    The Docker Daemon (dockerd) is the background service responsible for managing Docker images, containers,
+    networks, and volumes. The Docker CLI sends commands to the daemon through the Docker API, and the daemon
+    performs the requested operations.
+
+11. What is OCI?
+    OCI stands for Open Container Initiative. It is an open-source project that defines industry standards for
+    container images and container runtimes.
+    The main purpose of OCI is to ensure that containers and container images follow common standards and are
+    not tightly tied to a particular container platform.
+
+12. What is the difference between a Docker Image and a Docker Container?
+    A Docker Image is a read-only template that contains the application code, runtime, libraries, dependencies,
+    and configuration required to run an application. A Docker Container is a running instance of that image.
+    We create a container from an image, and multiple containers can be created from the same image.
+
+13. How do you Dockerize a Spring Boot Application?
+    To Dockerize a Spring Boot application, I first build the application JAR using Maven or Gradle.
+    Then I create a Dockerfile that uses a Java runtime image, copies the JAR into the image,
+    and starts it using java -jar. After building the Docker image with docker build,
+    I can run the application using docker run.
