@@ -1,0 +1,21 @@
+
+1. Why Java is not 100% Object Oriented?
+
+  Java is not 100% object oriented because of
+   - primitive data types
+        primitive data types ( byte, short, int, long, float, double, char, and boolean ) are not objects.
+        java includes these primitive types for performance reasons,
+        as they are more efficient in terms of memory and processing compared to objects.
+
+   - static members & methods
+        java supports static members ( variables and methods ) that are associated with a class
+        rather than an instance of the class.
+
+        In a strict object oriented paradigm, everything should be encapsulated within objects,
+        and there should be no concept of static members.
+
+   - Lack of multiple inheritance
+        Java supports single inheritance through classes, it does not support multiple inheritance.
+
+
+##
