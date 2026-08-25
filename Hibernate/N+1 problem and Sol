@@ -1,0 +1,84 @@
+
+#  What is N+1 problem in hibernate and how to solve it?
+
+   The N+1 problem refers to a performance issue that arises when using an ORM framework like Hibernate.
+
+   For each entity fetched, an additional query is executed to fetch its associated entities,
+   Hibernate executes 1 query to retrieve the parent entity and N queries to retrieve the child entities.
+
+   Example:
+   - Two entities are there, Author and Book which have a one-to-many relationship
+   - One author can have multiple boos.
+   - Retrieving through a list of authors and then iterating through each author to access their books results
+     in N+1 queries
+   - N represents number of authors
+   - Hibernate generates a special SQL query for each author's books in this scenario
+
+
+   Ways to solve N+1 problem
+   - Eager Fetching
+   - Fetch Joins
+   - Subselect Fetching
+   - Second level cache
+   - Entity Graphs
+   - Batch Fetching
+
+##   Eager Fetching
+     Can be used to load associated entities in a single query, reducing the number of DB hits
+
+     @OneToMany(fetch = FetchType.EAGER)
+     @JoinColumn(name = "author_id")
+     private List <Book> books;
+
+###  Fetch Joins
+
+     Explicitly tells Hibernate to fetch associated entities in the same query using a JOIN,
+     avoiding the N+1 problem entirely.
+
+     Works well when you know upfront that you'll need the associated data.
+     Downside: can cause duplicate rows (cartesian product) when fetching multiple collections at once —
+     use DISTINCT or a Set instead of List to avoid duplicates.
+
+     @Query("SELECT a FROM Author a JOIN FETCH a.books")
+     List<Author> findAllWithBooks();
+####
+    Subselect Fetching
+
+    Instead of firing one query per parent, Hibernate fires a second query that fetches
+    all the associated children for all the parents already loaded, using a subselect.
+    Converts N+1 queries into 2 queries total: one for authors, one subselect for all books belonging to those authors.
+    Good when you're loading a list of parents and know you'll touch their children.
+
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
+    private List<Book> books;
+#####
+    Second Level Cache
+
+    Caches entities across sessions (not just within one Hibernate session like the first-level cache),
+    so repeated access to the same associations doesn't hit the DB again.
+    Requires a cache provider (Ehcache, Infinispan, etc.).
+    Doesn't eliminate N+1 on first load, but avoids repeated N+1 hits for data that doesn't change often.
+
+    @Cacheable
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    public class Author { ... }
+######
+    Entity Graphs
+
+    Lets you define, at the query level, which associations should be eagerly fetched —
+    without changing the entity's default fetch type globally.
+    More flexible than hardcoding FetchType.EAGER on the entity, since you can choose per-query whether to
+    fetch the association.
+
+    @EntityGraph(attributePaths = {"books"})
+    @Query("SELECT a FROM Author a")
+    List<Author> findAllWithBooksGraph();
+######
+    Batch Fetching
+
+    Instead of firing one query per parent for its children, Hibernate batches multiple parents into a single IN query.
+    Converts N queries into N/batchSize queries (e.g., 100 authors with batch size 10 → 10 queries instead of 100).
+    Good middle ground when eager fetching everything isn't desirable but N+1 is still a problem.
+
+    hibernate.default_batch_fetch_size=10
