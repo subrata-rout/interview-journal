@@ -1,0 +1,10 @@
+
+#  Microservices
+   Microservices is about decomposing a large monolithic application into smaller, independently deployable services.
+   For example, in an e‑commerce system, we can have separate services for orders, payments, and inventory.
+   Each service owns its data and exposes APIs. In Java, we typically use Spring Boot for service development and
+   Spring Cloud for distributed system patterns like service discovery and centralized configuration.
+   The main benefits are scalability and faster delivery, but challenges include handling distributed transactions
+   and ensuring observability.
+
+##
