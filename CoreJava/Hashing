@@ -1,0 +1,59 @@
+
+#  Hashing Notes
+
+1. What is HashMap?
+   HashMap is a hash-based implementation of the Map interface that stores data as key-value pairs.
+   It uses hashing to provide average O(1) lookup, insertion, and deletion.
+
+2. How does HashMap work internally?
+   Internally, HashMap stores data in an array called the bucket table. Each element of this array is a bucket
+   that holds a reference to a Node object. A Node contains the key, value, cached hash, and a reference to the
+   next node. When put() is called, HashMap computes the key's hash, determines the bucket index, creates a new Node,
+   and stores its reference in that bucket. If another key maps to the same bucket, the nodes are linked together
+   using a linked list, and in Java 8, if the chain becomes long enough, it is converted into a Red-Black Tree
+   for faster lookups. This design allows HashMap to achieve O(1) average time complexity for insertions and lookups.
+
+3. Can we prevent hash collisions in HashMap?
+   No, we cannot completely prevent hash collisions because different objects can produce the same hash code.
+   This is a limitation of hashing itself. However, we can significantly reduce collisions by writing a good
+   hashCode() implementation, using immutable keys,
+   and relying on Java's improved hashing and collision handling mechanisms.
+
+3. What happens when two keys have the same hash code?
+   It causes a hash collision, so both keys go to the same bucket. HashMap then uses equals() to check
+   whether they are actually the same key. If they are equal, the value is replaced; otherwise,
+   both entries are stored in that bucket.
+
+4. What is Load Factor?
+   Load factor determines when HashMap should resize.
+   The default is 0.75. So, if the capacity is 16, the threshold is 16 × 0.75 = 12.
+   Once the entries exceed that threshold, HashMap resizes and redistributes the entries.
+
+5. Why is HashMap O(1)?
+   HashMap achieves average O(1) because it uses the key's hash to directly
+   determine the bucket instead of scanning all entries. If the hash function distributes keys well,
+   each bucket contains very few entries, so insertion and lookup are effectively constant time.
+
+6. Why is HashMap capacity usually a power of two?
+   HashMap uses a bitwise operation to calculate the bucket index: (capacity - 1) & hash.
+   When capacity is a power of two, capacity - 1 produces the required bit mask, making bucket calculation
+   efficient and providing good distribution
+
+7. What is ConcurrentHashMap?
+   ConcurrentHashMap is a thread-safe implementation of ConcurrentMap designed for concurrent access
+   by multiple threads. Unlike synchronizing an entire HashMap, it allows multiple threads to operate on different
+   parts of the map concurrently, providing much better scalability.
+
+8. How does ConcurrentHashMap work internally?
+   Internally, ConcurrentHashMap uses a hash table structure similar to HashMap,
+   with buckets containing nodes. The key difference is how concurrent modifications are handled.
+   Modern Java versions use CAS operations and synchronized blocks on individual bins rather than locking
+   the entire map. This allows multiple threads to update different buckets concurrently.
+
+9. Why doesn't ConcurrentHashMap allow null keys or values?
+
+
+
+
+
+
