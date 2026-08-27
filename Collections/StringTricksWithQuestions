@@ -1,0 +1,125 @@
+
+# String all Tricks and patterns to solve questions
+
+1. Core String methods
+
+   s.length()
+   s.charAt(i)
+   s.substring(start)          // from start to end
+   s.substring(start, end)     // end EXCLUSIVE
+   s.indexOf(char/String)      // -1 if not found
+   s.lastIndexOf(char/String)
+   s.toCharArray()
+   s.split(regex)              // String[]
+   s.equals(other)             // content compare
+   s.equalsIgnoreCase(other)
+   s.compareTo(other)          // lexicographic, <0 / 0 / >0
+   s.contains(sub)
+   s.replace(oldChar, newChar)
+   s.trim() / s.strip()
+   s.toLowerCase() / s.toUpperCase()
+   s.isEmpty() / s.isBlank()
+   s.startsWith(prefix) / s.endsWith(suffix)
+   s.repeat(n)                 // Java 11+
+   String.valueOf(x)           // int/char/etc -> String
+   String.join(",", list)      // join array/list with delimiter
+
+2. Character class helpers (huge time-savers)
+
+   Character.isDigit(c)
+   Character.isLetter(c)
+   Character.isLetterOrDigit(c)
+   Character.isUpperCase(c) / isLowerCase(c)
+   Character.toUpperCase(c) / toLowerCase(c)
+   Character.getNumericValue(c)   // '7' -> 7
+
+3. char <-> int (ASCII) — used in almost every problem
+
+  int index = c - 'a';        // lowercase letter -> 0-25
+  char letter = (char)('a' + index);
+  int digit = c - '0';        // '7' -> 7
+
+4. StringBuilder — full toolkit
+   StringBuilder sb = new StringBuilder();
+   sb.append(x);                // add anything
+   sb.reverse();
+   sb.deleteCharAt(i);
+   sb.delete(start, end);
+   sb.insert(i, x);
+   sb.setCharAt(i, c);
+   sb.charAt(i);
+   sb.length();
+   sb.toString();
+
+5. Arrays / sorting tricks
+   char[] arr = s.toCharArray();
+   Arrays.sort(arr);                    // sort chars (for anagram check)
+   String sorted = new String(arr);
+   Arrays.equals(arr1, arr2);           // compare two int[]/char[] arrays
+
+6. Frequency counting — 3 ways
+   int[] freq = new int[26];            // only lowercase a-z -> FASTEST
+   int[] freq = new int[128];           // full ASCII (upper+lower+digits+symbols)
+   HashMap<Character,Integer> freq = new HashMap<>(); // unicode / unknown charset
+   map.put(c, map.getOrDefault(c, 0) + 1);
+
+7. Two Pointers template
+   int left = 0, right = s.length() - 1;
+   while (left < right) {
+       // compare / swap / move
+       left++; right--;
+   }
+
+8. Sliding Window template (variable size)
+    int left = 0, result = 0;
+    for (int right = 0; right < s.length(); right++) {
+        // add s.charAt(right) into window
+        while (/* window invalid */) {
+            // remove s.charAt(left) from window
+            left++;
+        }
+        result = Math.max(result, right - left + 1);
+    }
+
+9. Sliding Window template (fixed size k)
+   for (int i = 0; i < s.length(); i++) {
+       // add s.charAt(i)
+       if (i >= k) { /* remove s.charAt(i - k) */ }
+       if (i >= k - 1) { /* check/update answer */ }
+   }
+
+10. Expand Around Center template (palindromes)
+    private int expand(String s, int left, int right) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--; right++;
+        }
+        return right - left - 1;   // length of palindrome
+    }
+    // call with (i, i) for odd length, (i, i+1) for even length
+
+11. HashSet — for "seen before" checks
+    HashSet<Character> seen = new HashSet<>();
+    seen.add(c);
+    seen.contains(c);
+    seen.remove(c);
+
+12. Trie skeleton (reuse this exact shape every time)
+    class TrieNode {
+        TrieNode[] children = new TrieNode[26];
+        boolean isEnd = false;
+    }
+
+13. DP on strings — table setup pattern
+    int[][] dp = new int[m + 1][n + 1];   // +1 for empty-string base case
+    // dp[i][j] usually means: answer using first i chars of a, first j chars of b
+    // base case: dp[0][j] = ... , dp[i][0] = ...
+    // transition compares a.charAt(i-1) with b.charAt(j-1)
+
+14. Common gotchas
+    - substring(start, end) → end is EXCLUSIVE, easy to get off-by-one
+    - Never compare strings with == — always .equals()
+    - s.charAt(i) throws error if i >= s.length() — check bounds first
+    - Empty string "" vs null are different — check both when unsure
+    - int[26] only works for lowercase a-z; use int[128] or HashMap otherwise
+    - Modifying a String doesn't change the original (immutability) — must reassign or use StringBuilder
+    - Integer.parseInt(s) throws exception on invalid input — wrap in try/catch if unsure of input
