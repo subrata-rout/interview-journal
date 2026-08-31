@@ -1,0 +1,106 @@
+
+#  Arraylist Internals & Core API
+   ArrayList<Integer> list = new ArrayList<>(); // default capacity 10 (lazy — allocated on first add)
+
+   - Backed by an Object[] array.
+   - When full, it grows to 1.5x the old capacity (newCapacity = oldCapacity + (oldCapacity >> 1)), NOT doubling
+     (that's a common misconception — Vector doubles, ArrayList grows 1.5x).
+   - Growth = create new array, Arrays.copyOf() old data into it → O(n) for that one operation,
+     but amortized O(1) for add() over many calls.
+   - add(index, val) and remove(index) shift all elements after that index → O(n).
+
+#  Complexity cheat sheet
+   Operation	                Time
+   get(i) / set(i, v)	    O(1)
+   add(v) (at end)	        O(1)amortized
+   add(i, v) / remove(i)	    O(n)
+   contains(v) / indexOf(v)	O(n)
+   size()	                O(1)
+
+#  Must know Core methods
+   List<Integer> list = new ArrayList<>();
+   list.add(10);              // append
+   list.add(0, 5);            // insert at index — shifts everything right
+   list.get(1);                // 10
+   list.set(1, 20);            // overwrite
+   list.remove(0);             // remove by INDEX
+   list.remove(Integer.valueOf(20)); // remove by VALUE (first occurrence)
+   list.removeAll(Integer.valueOf(20)); // remove by VALUE (remove duplicates)
+   list.contains(20);
+   list.indexOf(20);
+   list.size();
+   list.isEmpty();
+   Collections.sort(list);     // natural order
+   Collections.reverse(list);
+
+*  ConcurrentModificationException (fail-fast iterator) — most asked
+   List<Integer> list = new ArrayList<>(List.of(1, 2, 3, 4));
+   for (Integer n : list) {
+       if (n == 2) list.remove(n); // ❌ CME thrown
+   }
+
+   ArrayList's iterator tracks a modCount. Any structural change to the list outside the iterator's own remove()
+   desyncs it → throws ConcurrentModificationException on the next next() call. Fix: use Iterator.remove() or
+   removeIf().
+
+* ArrayList vs LinkedList vs Vector vs CopyOnWriteArrayList
+
+  ArrayList — dynamic array, O(1) random access, O(n) insert/delete in middle, not thread-safe, grows by 1.5x.
+  LinkedList — doubly linked list, O(1) insert/delete at ends (and at a known node), O(n) random access via traversal,
+               implements both List and Deque.
+  Vector — legacy synchronized version of ArrayList; every method is synchronized (locks on every call,
+           even single-threaded use), grows by 2x (doubling) instead of 1.5x.
+  CopyOnWriteArrayList — thread-safe, fail-safe iterator (never throws CME); every write (add/remove) copies the
+                         entire backing array, so it's great for read-heavy/rarely-written concurrent scenarios and
+                         bad for write-heavy ones.
+
+* toArray() pitfal
+  Object[] arr = list.toArray();                    // loses type info
+  Integer[] arr2 = list.toArray(new Integer[0]);   // ✅ correct typed way
+
+* Initial capacity constructor (perf detail)
+  new ArrayList<>(1000); // pre-sizes backing array, avoids repeated resizing — mentioned in perf-sensitive answers
+
+* subList() is a view, not a copy
+  List<Integer> sub = list.subList(1, 3);
+  sub.set(0, 99); // mutates the ORIGINAL list too
+
+
+### Questions
+    - Easy
+    1. Remove duplicates from sorted ArrayList (in-place, two pointers)
+    2. Move all zeros to end (two pointers, stable order)
+    3. Rotate array by k positions (reversal trick)
+    4. Find the missing number in 1 to n (sum formula / XOR)
+    5. Second largest element (single pass, no sorting)
+
+    - Medium
+    1. Two Sum — return indices of pair summing to target (HashMap, O(n)) — extremely commonly asked
+    2. Remove duplicates from unsorted ArrayList (HashSet vs in-place O(n²) approach)
+    3. Merge two sorted ArrayLists into one sorted list
+    4. Find all pairs with given sum (two-pointer on sorted / HashMap on unsorted)
+    5. Kadane's Algorithm — Maximum Subarray Sum — very frequently asked
+    6. Product of Array Except Self (no division, prefix/suffix products)
+    7. Sort an array of 0s, 1s, 2s (Dutch National Flag algorithm) — classic FAANG favorite
+    8. Find the duplicate number (Floyd's cycle detection on array / negative marking)
+    9. Intersection of two ArrayLists
+    10.Rearrange array in alternating positive/negative order
+    11.Best Time to Buy and Sell Stock (single pass, track min)
+    12.Majority Element (Boyer-Moore Voting Algorithm) — very frequently asked
+
+    - HARD
+    1. Merge Intervals — one of THE most asked interview questions overall
+    2. Trapping Rain Water — classic hard, two-pointer/prefix-suffix
+    3. Next Permutation
+    4. Find Median of Two Sorted Arrays (binary search, O(log(m+n))) — notorious hard
+    5. Longest Consecutive Sequence (O(n) using HashSet)
+    6. 3Sum (two-pointer after sort, avoid duplicates) — extremely commonly asked
+    7. 4Sum
+    8. Subarray Sum Equals K (prefix sum + HashMap)
+    9. Maximum Product Subarray (track both max and min running product)
+    10.Insert Interval
+    11.First Missing Positive (in-place index marking, O(n) time O(1) space) — tricky, asked at top companies
+
+
+
+
