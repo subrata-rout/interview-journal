@@ -1,0 +1,42 @@
+
+#   Hibernate Cache
+
+##  First level Cache
+    This first level cache is the initial cache Hibernate retrieving an object from the DB.
+    This cache is maintainer at the Session level and enabled by default in Hibernate.
+    First Level cache is associated with the session object.
+    The data stored in the first level cache is accessible to the only session that maintains it.
+    You cannot disable the first level cache, it is always enabled.
+    Hibernate entities remain in cache only until session is open, once session is closed all associated
+    cache data is lost
+    Mainly, it reduced the number of SQL queries generated within a given transaction. Instead of updating after
+    every modification done in the transaction, it updates the transaction only at the end of transaction/session
+
+##  First level cache causes Reduction in SQL queries
+    An entity loaded within a session is stored the first level cache.
+    If the same entity is requested again during that session, Hibernated retrieves it from the cache.
+    This avoids executing additional SQL queries against the DB
+    Hence, the number of SQL queries is reduced.
+    Multiple accesses to the same entity within a session do not result in repeated db interactions.
+
+## First -level cache causes delayed Execution of SQL Updates
+   Hibernate tracks changes to entities within a session
+   Modification to entities are recorded by session but not immediately applied to db. Hibernate waits until
+   transaction is ready to commit
+   At transaction end, Hibernate flushes the session, which means changes are synced to the DB.
+   This batching of SQL updates enhances efficiency by minimizing DB interactions.
+
+## Remove/ clear cache
+   When we query an entity first time, it is retrieved from DB and stored in first level cache
+   Session.evict() can be used to remove the loaded entity from first level cache.
+   The next loading of this entity will again make a db call if it has been removed using evict() method.
+   The whole session cache can be removed using clear() method. It will remove all the entities stored in cache
+   Multiple accesses to the same entity within a session do not result in repeated database interactions.
+
+   Conclusion:-
+   - First level cache in Hibernated reduces SQL queries
+   - Caches entities within a session defers SQL updates until end of transaction
+   - Ensures efficient and optimized database operations
+   - As soon as you close the session, all data in first level cache is lost
+   - If you load same object again, Hibernate will again go the the DB to load that object, provided Second level
+     cache is disabled.
