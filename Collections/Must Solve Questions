@@ -1,0 +1,148 @@
+
+1. Two Sum
+2. Three sum
+3. Best Time to Buy Sell Stock
+4. Maximum Subarray
+5. Contains Duplicate
+6. Product Except Self
+7. Valid Anagram
+8. Longest Substring without Repeating
+9. Valid Parentheses
+10. Merge Two Sorted Lists
+11. Reverse Linked List
+12. Binary Search
+13. Climbing Stairs
+14. House Robber
+15. Coin Change
+16. Longest increasing Substring Substring
+17. Number of Island
+18. Kth Largest Element
+19. Top K frequent Elements
+20. Sliding Window Maximum
+21. Min Stack
+22. MaxSubArray
+23. ContainsDuplicate
+24.  O(n) / O(1)
+    class Solution{
+     public int[] productExceptSelf(int[] a){
+      int n=a.length; int[] r=new int[n];
+      r[0]=1;
+      for(int i=1;i<n;i++) r[i]=r[i-1]*a[i-1];
+      int right=1;
+      for(int i=n-1;i>=0;i--){
+       r[i]*=right; right*=a[i];
+      }
+      return r;
+     }
+     }
+
+25. Anagram
+26. lengthOfLongestSubstring
+27. Valid String
+28. MergeTwoLinkedList
+29. Reverse LinkedList
+30. Find Target
+31. ClimbStair
+    class Solution{
+     public int climbStairs(int n){
+      if(n<=2) return n;
+      int a=1,b=2;
+      for(int i=3;i<=n;i++){
+       int c=a+b; a=b; b=c;
+      }
+      return b;
+     }
+    }
+32. class Solution{
+     public int rob(int[] a){
+      int prev=0,curr=0;
+      for(int x:a){
+       int t=Math.max(curr,prev+x);
+       prev=curr; curr=t;
+      }
+      return curr;
+     }
+    }
+33. CoinChange
+    class Solution{
+     public int coinChange(int[] c,int amt){
+      int[] dp=new int[amt+1];
+      java.util.Arrays.fill(dp,amt+1);
+      dp[0]=0;
+      for(int i=1;i<=amt;i++){
+       for(int x:c){
+        if(i-x>=0) dp[i]=Math.min(dp[i],dp[i-x]+1);
+       }
+      }
+      return dp[amt]>amt?-1:dp[amt];
+     }
+    }
+
+
+34. class Solution{
+     public int lengthOfLIS(int[] a){
+      int[] d=new int[a.length]; int len=0;
+      for(int x:a){
+       int i=java.util.Arrays.binarySearch(d,0,len,x);
+       if(i<0) i=-(i+1);
+       d[i]=x;
+       if(i==len) len++;
+      }
+      return len;
+     }
+    }
+35. O(mn) / O(mn)
+    class Solution{
+     public int numIslands(char[][] g){
+      int c=0;
+      for(int i=0;i<g.length;i++)
+       for(int j=0;j<g[0].length;j++)
+        if(g[i][j]=='1'){dfs(g,i,j);c++;}
+      return c;
+     }
+     void dfs(char[][] g,int i,int j){
+      if(i<0||j<0||i>=g.length||j>=g[0].length||g[i][j]=='0')return;
+      g[i][j]='0';
+      dfs(g,i+1,j);dfs(g,i-1,j);dfs(g,i,j+1);dfs(g,i,j-1);
+     }
+    }
+
+36. class Solution{
+     public int findKthLargest(int[] a,int k){
+      java.util.PriorityQueue<Integer> pq=new java.util.PriorityQueue<>();
+      for(int x:a){
+       pq.add(x);
+       if(pq.size()>k) pq.poll();
+      }
+      return pq.peek();
+     }
+    }
+37. class Solution{
+     public int[] topKFrequent(int[] a,int k){
+      java.util.Map<Integer,Integer> m=new java.util.HashMap<>();
+      for(int x:a) m.put(x,m.getOrDefault(x,0)+1);
+      java.util.PriorityQueue<Integer> pq=new java.util.PriorityQueue<>((x,y)->m.get(x)-m.get(y));
+      for(int x:m.keySet()){
+       pq.add(x);
+       if(pq.size()>k) pq.poll();
+      }
+      int[] r=new int[k];
+      for(int i=k-1;i>=0;i--) r[i]=pq.poll();
+      return r;
+     }
+    }
+39. class Solution{
+     public int[] maxSlidingWindow(int[] a,int k){
+      java.util.Deque<Integer> dq=new java.util.ArrayDeque<>();
+      int[] r=new int[a.length-k+1]; int idx=0;
+      for(int i=0;i<a.length;i++){
+       while(!dq.isEmpty()&&dq.peek()<i-k+1) dq.poll();
+       while(!dq.isEmpty()&&a[dq.peekLast()]<a[i]) dq.pollLast();
+       dq.offer(i);
+       if(i>=k-1) r[idx++]=a[dq.peek()];
+      }
+      return r;
+     }
+    }
+
+39. MaxValue
