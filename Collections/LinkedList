@@ -1,0 +1,254 @@
+
+#  LinkedList
+   Step 1
+   Think of it like a train
+
+   [Data|Next] → [Data|Next] → [Data|Next] → null
+      Node 1         Node 2         Node 3
+
+   - Each Node has 2 things: data + pointer to next node
+   - Head is just the reference to the first node
+   - Last node points to null (end of list)
+
+   Step 2
+   Build the Node Class
+
+   // A Node is just a box with 2 things inside
+   class Node {
+       int data;    // the value
+       Node next;   // pointer to next node
+
+       // constructor
+       Node(int data) {
+           this.data = data;
+           this.next = null; // by default points to nothing
+       }
+   }
+
+   Step 3
+   Build the LinkedList Class (just head)
+
+   class LinkedList {
+       Node head; // just stores reference to first node
+
+       // constructor - empty list
+       LinkedList() {
+           head = null;
+       }
+   }
+
+   Visualize:
+   Empty list:   head → null
+
+   After adding 10:  head → [10|null]
+
+   After adding 20:  head → [10|next] → [20|null]
+
+   After adding 30:  head → [10|next] → [20|next] → [30|null]
+
+   Step 4
+   Insert at End (Append)
+
+   void insertAtEnd(int data) {
+       Node newNode = new Node(data); // create new node
+
+       // Case 1: list is empty
+       if (head == null) {
+           head = newNode;
+           return;
+       }
+
+       // Case 2: traverse to last node
+       Node current = head;
+       while (current.next != null) { // keep going until last
+           current = current.next;
+       }
+
+       current.next = newNode; // attach new node at end
+   }
+
+   Visualize:
+   insertAtEnd(10): head → [10|null]
+
+   insertAtEnd(20):
+     current starts at [10]
+     current.next is null → stop
+     attach 20 → head → [10|next] → [20|null]
+
+   insertAtEnd(30):
+     current starts at [10]
+     current.next = [20] → move
+     current.next = null → stop
+     attach 30 → head → [10] → [20] → [30|null]
+
+   Step 5
+   Insert at Beginning (Prepend)
+
+   void insertAtBeginning(int data) {
+       Node newNode = new Node(data);
+
+       // new node points to current head
+       newNode.next = head;
+
+       // head now points to new node
+       head = newNode;
+   }
+   Visualize:
+   Before: head → [10] → [20] → [30|null]
+
+   insertAtBeginning(5):
+     newNode = [5]
+     newNode.next = head ([10])
+     head = newNode
+
+   After: head → [5] → [10] → [20] → [30|null]
+
+   Step 6
+   Insert at Position
+
+   void insertAtPosition(int data, int position) {
+       Node newNode = new Node(data);
+
+       // position 0 = insert at beginning
+       if (position == 0) {
+           newNode.next = head;
+           head = newNode;
+           return;
+       }
+
+       // traverse to (position-1)th node
+       Node current = head;
+       for (int i = 0; i < position - 1; i++) {
+           if (current == null) {
+               System.out.println("Position out of range!");
+               return;
+           }
+           current = current.next;
+       }
+
+       // insert between current and current.next
+       newNode.next = current.next;
+       current.next = newNode;
+   }
+
+   Visualize:
+   List:  head → [10] → [20] → [30|null]
+   insertAtPosition(99, 2)
+
+   Traverse to position 1 → current = [20]
+   newNode.next = current.next ([30])
+   current.next = newNode
+
+   After: head → [10] → [20] → [99] → [30|null]
+
+   Step 7
+   Delete by Value
+
+   void delete(int data) {
+       // Case 1: empty list
+       if (head == null) {
+           System.out.println("List is empty!");
+           return;
+       }
+
+       // Case 2: delete head node
+       if (head.data == data) {
+           head = head.next; // just move head forward
+           return;
+       }
+
+       // Case 3: find node before the one to delete
+       Node current = head;
+       while (current.next != null) {
+           if (current.next.data == data) {
+               current.next = current.next.next; // skip deleted node
+               return;
+           }
+           current = current.next;
+       }
+
+       System.out.println("Value not found!");
+   }
+
+   Visualize:
+   List: head → [10] → [20] → [30] → [40|null]
+   delete(30)
+
+   current = [10], current.next.data = 20 → move
+   current = [20], current.next.data = 30 → FOUND!
+   current.next = current.next.next ([40])
+
+   After: head → [10] → [20] → [40|null]
+            [30] is now disconnected → garbage collected ✅
+
+   Step 8
+   Print / Display the List
+
+   void display() {
+       if (head == null) {
+           System.out.println("List is empty!");
+           return;
+       }
+
+       Node current = head;
+       while (current != null) {
+           System.out.print(current.data);
+           if (current.next != null) System.out.print(" → ");
+           current = current.next;
+       }
+       System.out.println(" → null");
+   }
+
+   Step 9
+   Reverse a LinkedList (Most Asked!)
+   void reverse() {
+       Node prev = null;
+       Node current = head;
+       Node next = null;
+
+       while (current != null) {
+           next = current.next;  // save next
+           current.next = prev;  // reverse pointer
+           prev = current;       // move prev forward
+           current = next;       // move current forward
+       }
+
+       head = prev; // prev is now the new head
+   }
+   Visualize:
+   Before: head → [10] → [20] → [30] → null
+
+   Step 1: prev=null, current=[10], next=[20]
+           [10].next = null
+           prev=[10], current=[20]
+
+   Step 2: prev=[10], current=[20], next=[30]
+           [20].next = [10]
+           prev=[20], current=[30]
+
+   Step 3: prev=[20], current=[30], next=null
+           [30].next = [20]
+           prev=[30], current=null
+
+   head = prev = [30]
+   After: head → [30] → [20] → [10] → null ✅
+
+   Step 10
+   Search a Value
+   boolean search(int data) {
+       Node current = head;
+       while (current != null) {
+           if (current.data == data) return true;
+           current = current.next;
+       }
+       return false;
+   }
+
+   Complexity Summary
+   Operation	              Time	Space
+   Insert at beginning	      O(1)	O(1)
+   Insert at end	          O(n)	O(1)
+   Insert at position	      O(n)	O(1)
+   Delete	                  O(n)	O(1)
+   Search	                  O(n)	O(1)
+   Reverse	                  O(n)	O(1)
