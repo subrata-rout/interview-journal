@@ -1,14 +1,62 @@
 
 # Must solve and Frequently asked questions with patterns
 
-	Problem	                                        Pattern
-1	LC 1 – Two Sum	                                HashMap for complement
-2	LC 26 – Remove Duplicates from Sorted Array	    Two pointers (slow/fast)
-3	LC 27 – Remove Element	                        Two pointers
-4	LC 121 – Best Time to Buy/Sell Stock	        Single pass, track min
-5	LC 217 – Contains Duplicate	                    HashSet
-6	LC 448 – Find All Numbers Disappeared in Array	Index marking
-7	LC 66 – Plus One	                            Digit array manipulation
-8	LC 283 – Move Zeroes	                        Two pointers (slow/fast)
-9	LC 35 – Search Insert Position	                Binary search
-10	LC 118 – Pascal's Triangle	                    2D array building
+#	Problem	                                            Pattern
+1	LC 1 – Two Sum	                                    HashMap for complement
+2	LC 26 – Remove Duplicates from Sorted Array	        Two pointers (slow/fast)
+3	LC 27 – Remove Element	                            Two pointers
+4	LC 121 – Best Time to Buy/Sell Stock	            Single pass, track min
+5	LC 217 – Contains Duplicate	                        HashSet
+6	LC 448 – Find All Numbers Disappeared in Array	    Index marking
+7	LC 66 – Plus One	                                Digit array manipulation
+8	LC 283 – Move Zeroes	                            Two pointers (slow/fast)
+9	LC 35 – Search Insert Position	                    Binary search
+10	LC 118 – Pascal's Triangle	                        2D array building
+
+    Must-solve Medium questions
+#	Problem	                                            Pattern
+1	LC 53 – Maximum Subarray	                        Kadane's
+2	LC 152 – Maximum Product Subarray	                Kadane's variant (track min & max)
+3	LC 560 – Subarray Sum Equals K	                    Prefix sum + HashMap
+4	LC 15 – 3Sum	                                    Sort + two pointers
+5	LC 11 – Container With Most Water	                Two pointers
+6	LC 238 – Product of Array Except Self	            Prefix/suffix product
+7	LC 75 – Sort Colors	                                Dutch National Flag
+8	LC 56 – Merge Intervals	                            Sort + merge
+9	LC 33 – Search in Rotated Sorted Array	            Modified binary search
+10	LC 41 – First Missing Positive	                    Cyclic sort
+11	LC 128 – Longest Consecutive Sequence	            HashSet
+12	LC 34 – Find First/Last Position in Sorted Array	Binary search (lower/upper bound)
+13	LC 78 – Subsets	                                    Backtracking on array
+14	LC 48 – Rotate Image	                            2D array in-place rotation
+15	LC 73 – Set Matrix Zeroes	                        2D array, O(1) space marking
+
+Must-solve Hard questions
+#	Problem	                                            Pattern
+1	LC 42 – Trapping Rain Water	                        Two pointers / stack
+2	LC 4 – Median of Two Sorted Arrays	                Binary search
+3	LC 239 – Sliding Window Maximum                 	Monotonic deque
+4	LC 84 – Largest Rectangle in Histogram	            Monotonic stack
+5	LC 149 – Max Points on a Line	                    HashMap of slopes
+6	LC 41 – First Missing Positive (hard variant)	    Cyclic sort, O(1) space
+7	LC 128 – Longest Consecutive Sequence (O(n) req.)	HashSet
+8	LC 剑指/315 – Count of Smaller Numbers After Self	Merge sort / BIT
+9	LC 493 – Reverse Pairs	                            Merge sort
+10	LC 407 – Trapping Rain Water II	                    Heap + BFS (2D)
+
+
+Quick-Reference: Which Pattern When
+
+1. Signal in the problem	                           Pattern to reach for
+2. "sorted array" + pair/triplet	                   Two pointers
+3. "contiguous subarray" + sum/max	                   Sliding window or Kadane's
+4. values are in range 1..n	                           Cyclic sort
+5. "duplicate/missing number", O(1) space	           Index marking (negate) or cyclic sort
+6. need min/max in every window	                       Monotonic deque
+7. "next greater/smaller element"	                   Monotonic stack
+8. rotated sorted array	                               Modified binary search
+9. intervals	                                       Sort by start, then merge
+10. matrix traversal/rotation	                       Boundary pointers (top/bottom/left/right)
+11. "count pairs/inversions"	                           Merge sort
+
+
