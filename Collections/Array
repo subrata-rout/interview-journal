@@ -1,0 +1,84 @@
+
+#  Arrays
+
+1. Basics
+  // Declaration + creation
+  int[] arr = new int[5];              // default values: 0
+  int[] arr2 = {1, 2, 3, 4, 5};        // literal init
+  int[] arr3 = new int[]{1, 2, 3};     // explicit new + literal
+
+  // 2D array
+  int[][] grid = new int[3][4];        // 3 rows, 4 cols
+  int[][] grid2 = {{1,2},{3,4},{5,6}}; // jagged-capable
+
+  // Length
+  arr.length;        // NOT arr.length() — that's the #1 mistake
+  grid.length;       // number of rows
+  grid[0].length;    // number of cols in row 0
+
+  // Traversal
+  for (int i = 0; i < arr.length; i++) { }
+  for (int x : arr) { }                // enhanced for-loop (read-only copy)
+
+  // Common utility methods (java.util.Arrays)
+  Arrays.sort(arr);                              // ascending, in-place
+  Arrays.sort(arr, Collections.reverseOrder());  // only works on Integer[], not int[]
+  Arrays.fill(arr, 0);                           // fill all with value
+  Arrays.copyOf(arr, newLength);                 // resize (pads with 0)
+  Arrays.copyOfRange(arr, from, to);              // [from, to)
+  Arrays.equals(arr1, arr2);                     // element-wise equality
+  Arrays.toString(arr);                          // for printing
+  Arrays.asList(1, 2, 3);                        // fixed-size List view (careful!)
+  int idx = Arrays.binarySearch(arr, key);       // array MUST be sorted first
+
+  Key gotchas (interviewers love these):
+
+  - int[] is primitive → sorting descending needs a trick (see below) since Collections.reverseOrder() needs Integer[].
+  - arr.clone() does a shallow copy for 2D arrays — inner arrays are still shared references.
+  - Arrays are fixed size — no add/remove. That's the whole reason ArrayList exists.
+  - Default values: 0 for numeric, false for boolean, null for objects.
+
+  Descending sort trick for primitive int[]:
+
+ // Box manually, sort descending, then unbox back — no streams needed
+ Integer[] boxed = new Integer[arr.length];
+ for (int i = 0; i < arr.length; i++) boxed[i] = arr[i];
+ Arrays.sort(boxed, Collections.reverseOrder());
+ for (int i = 0; i < arr.length; i++) arr[i] = boxed[i];
+
+2. Easy — Foundational Patterns
+   - Pattern: Two Pointers (opposite ends)
+
+     Used for: reverse array, palindrome check, pair-sum in sorted array.
+
+     java
+     void reverse(int[] arr) {
+         int l = 0, r = arr.length - 1;
+         while (l < r) {
+             int tmp = arr[l]; arr[l] = arr[r]; arr[r] = tmp;
+             l++; r--;
+         }
+     }
+
+  - Pattern: Prefix computation (running max/min/sum)
+
+    int maxSoFar = Integer.MIN_VALUE;
+    for (int x : arr) maxSoFar = Math.max(maxSoFar, x);
+
+  - Pattern: Frequency counting (HashMap or count array)
+
+    int[] freq = new int[26]; // for lowercase letters, or use HashMap<Integer,Integer> for general ints
+    for (char c : s.toCharArray()) freq[c - 'a']++;
+
+  - - Remove Duplicates (slow/fast pointer template — reused everywhere)
+    int removeDuplicates(int[] nums) {
+        if (nums.length == 0) return 0;
+        int slow = 0;
+        for (int fast = 1; fast < nums.length; fast++) {
+            if (nums[fast] != nums[slow]) {
+                slow++;
+                nums[slow] = nums[fast];
+            }
+        }
+        return slow + 1;
+    }
