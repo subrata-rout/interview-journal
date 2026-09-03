@@ -1,0 +1,14 @@
+
+# Must solve and Frequently asked questions with patterns
+
+	Problem	                                        Pattern
+1	LC 1 – Two Sum	                                HashMap for complement
+2	LC 26 – Remove Duplicates from Sorted Array	    Two pointers (slow/fast)
+3	LC 27 – Remove Element	                        Two pointers
+4	LC 121 – Best Time to Buy/Sell Stock	        Single pass, track min
+5	LC 217 – Contains Duplicate	                    HashSet
+6	LC 448 – Find All Numbers Disappeared in Array	Index marking
+7	LC 66 – Plus One	                            Digit array manipulation
+8	LC 283 – Move Zeroes	                        Two pointers (slow/fast)
+9	LC 35 – Search Insert Position	                Binary search
+10	LC 118 – Pascal's Triangle	                    2D array building
