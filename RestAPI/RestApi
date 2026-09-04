@@ -1,0 +1,5 @@
+
+# REST
+  REST (Representational State Transfer) is an architectural style defined by Roy Fielding in his 2000 PhD dissertation.
+  It's a set of constraints, not a protocol or standard. An API that violates these constraints isn't "wrong" — it's
+  just not REST (often called "RESTful-ish" or RPC-over-HTTP).

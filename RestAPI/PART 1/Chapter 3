@@ -1,0 +1,47 @@
+
+# HTTP Deep Dive
+
+  Methods
+
+  GET
+  POST
+  PUT
+  PATCH
+  DELETE
+  OPTIONS
+  HEAD
+
+  Status Codes
+
+  100
+
+  200
+
+  300
+
+  400
+
+  500
+
+  Every status code with examples.
+
+  Headers
+
+  Authorization
+
+  Accept
+
+  Content-Type
+
+  Cache-Control
+
+  ETag
+
+  If-Match
+
+  Cookies
+
+  Session
+
+  JWT Header
+
