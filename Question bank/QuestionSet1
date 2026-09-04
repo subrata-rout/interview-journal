@@ -1,0 +1,29 @@
+
+# Some questions I gathered from other's
+
+1st Round – Technical Discussion
+1️⃣ Introduce yourself and explain your project.
+2️⃣ What is Fetch Type? Explain Lazy vs Eager Loading.
+3️⃣ Explain and implement the Factory Design Pattern with some modifications.
+4️⃣ What is JWT Security, and how have you used it in your project?
+5️⃣ What do you know about ISO 8583?
+6️⃣ What is the difference between IoC and Dependency Injection?
+7️⃣ What is Dependency Injection? Explain its different types.
+🔹 2nd Round – Coding
+💻 This round focused on both coding and practical problem-solving.
+1️⃣ 5 MCQs based on Spring Boot
+2️⃣ Modify and improve the given code.
+3️⃣ Find the second-highest number in an array.
+4️⃣ Find a file inside a subdirectory.
+🔹 3rd Round – Advanced Technical
+The discussion went deeper into real-world backend development:
+1️⃣ How have you used Spring Security in your project?
+2️⃣ What is a Spring Boot Profile, and how did you use it?
+3️⃣ What is Exception Handling, and what is an Advisor?
+4️⃣ How does the @Transactional annotation work?
+5️⃣ Explain Microservices Architecture.
+6️⃣ What is Apache Kafka, and how have you implemented it?
+7️⃣ Explain Design Patterns and their practical usage.
+8️⃣ What are the important Java 8 features?
+9️⃣ How did you implement Scheduling in your project?
+🔟 How can you create an Optional of an Employee object?
