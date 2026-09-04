@@ -1,0 +1,27 @@
+
+#  What is a Matrix
+   A matrix is just a grid of numbers — rows and columns.
+   In Java, it's a 2D array: int[][] mat = new int[3][4];
+   means 3 rows, 4 columns.
+
+   int[][] mat = {
+       {1, 2, 3},
+       {4, 5, 6},
+       {7, 8, 9}
+   };
+   // mat[0][0] = 1  → row 0, col 0
+   // mat[1][2] = 6  → row 1, col 2
+   // mat.length      = number of rows (3)
+   // mat[0].length   = number of columns (3)
+
+   mat[row][col] — row comes first, then column.
+   Row = which line (vertical position),
+   Col = which item in that line (horizontal position).
+
+   How to loop through it (memorize this, you'll type it 100 times):
+
+   for (int r = 0; r < mat.length; r++) {
+       for (int c = 0; c < mat[0].length; c++) {
+           System.out.print(mat[r][c] + " ");
+       }
+   }
