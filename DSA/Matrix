@@ -25,3 +25,58 @@
            System.out.print(mat[r][c] + " ");
        }
    }
+
+   //Print a matrix row by row
+   for (int r = 0; r < mat.length; r++) {        // outer loop = which row
+               for (int c = 0; c < mat[0].length; c++) {  // inner loop = which column in that row
+                   System.out.print(mat[r][c] + " ");
+               }
+               System.out.println(); // move to next line after finishing a row
+           }
+  // print a matrix col by col
+     for (int c=0; c<mat[0].length ;c++){
+             for(int r=0; r< mat.length; r++){
+               System.out.print( mat[r][c]+" ");
+             }
+             System.out.println();
+           }
+
+  // Find sum of all elements
+     int sum =0;
+     for (int r = 0; r < mat.length; r++) {        // outer loop = which row
+         for (int c = 0; c < mat[0].length; c++) {  // inner loop = which column in that row
+             sum+=mat[r][c];
+         }
+         System.out.println(sum); // move to next line after finishing a row
+     }
+
+  // Find the max element and its position
+      int max=mat [0][0];
+           int maxRow=0;
+             int maxCol=0;
+           for (int r=0; r<mat.length ;r++){
+             for(int c=0; c< mat[0].length; c++){
+              if(mat[r][c]>max){
+                max=mat[r][c];
+                maxRow=r;
+                maxCol=c;
+              }
+             }
+           }
+          System.out.println("Max = " + max + " at position (" + maxRow + ", " + maxCol + ")");
+
+  //  Print only the border/boundary elements
+   A cell mat[r][c] is on the border if it's on:
+
+   the first row (r == 0), OR
+   the last row (r == mat.length - 1), OR
+   the first column (c == 0), OR
+   the last column (c == mat[0].length - 1)
+
+   for (int r = 0; r < mat.length; r++) {
+       for (int c = 0; c < mat[0].length; c++) {
+           // decide here: is this a border cell? if yes, print it.
+       }
+       System.out.println();
+       }
+
