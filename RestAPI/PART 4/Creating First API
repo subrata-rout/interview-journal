@@ -1,0 +1,13 @@
+ # Creating First API
+
+   Hello API
+
+   Controller
+
+   @RestController
+
+   @RequestMapping
+
+   @GetMapping
+
+   @PostMapping

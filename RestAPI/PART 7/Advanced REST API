@@ -1,0 +1,41 @@
+
+
+ Versioning
+
+ URI Versioning
+
+ Header Versioning
+
+ Content Negotiation
+
+ Idempotency
+
+ Retry
+
+ Circuit Breaker
+
+ Resilience4j
+
+ Caching
+
+ Redis
+
+ API Documentation
+
+ Swagger
+
+ OpenAPI
+
+ HATEOAS
+
+ File Upload
+
+ File Download
+
+ Async APIs
+
+ Event Driven APIs
+
+ WebSocket
+
+ SSE
