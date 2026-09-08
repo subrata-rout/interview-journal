@@ -1,0 +1,94 @@
+
+  # CAP theorem
+  CAP = Consistency, Availability, Partition Tolerance.
+
+  The CAP theorem says that when a network partition occurs,
+  a distributed system cannot simultaneously guarantee both Consistency and Availability.
+
+  Consistency (C): Every read gets the latest successful write (or an error).
+  Availability (A): Every request to a non-failing node gets a response, though it may not contain the latest data.
+  Partition Tolerance (P): The system continues operating despite communication failures between parts of the network.
+
+  Simple example
+
+  Imagine a database replicated across Server A and Server B. If the network connection between them breaks:
+
+  CP system: Prioritizes consistency. A server may reject requests rather than return potentially outdated data.
+
+  AP system: Prioritizes availability. Both servers keep accepting/responding to requests, but their data can
+  temporarily disagree.
+
+  So the practical CAP choice during a partition is:
+
+  CP → Consistency over Availability
+  AP → Availability over Consistency
+
+  A common misconception is describing CAP as simply “choose any 2 out of 3.” More precisely,
+  when a partition exists, you must trade off consistency against availability.
+
+ Common interview question
+ Can a distributed system provide Consistency, Availability, and Partition Tolerance simultaneously?
+ Answer:
+ No. During a network partition, you must choose between:
+
+ CP (Consistency + Partition Tolerance), or
+ AP (Availability + Partition Tolerance).
+
+ Since network partitions are unavoidable in distributed systems, modern distributed systems are generally designed
+ as either CP or AP, depending on the application's requirements.
+
+ Here's a simple decision guide:
+
+ Requirement	                          Choose	Why
+ Data correctness is critical	            CP	    Never return stale or conflicting data.
+ Service must always remain available	    AP	    Continue serving requests even if data is temporarily inconsistent.
+
+  Choose CP (Consistency + Partition Tolerance)
+  Use CP when incorrect data is worse than temporary downtime.
+
+  Examples
+  🏦 Banking systems
+  Account balance
+  Money transfer
+  💳 Payment gateways
+  📈 Stock trading
+  ✈️ Flight seat booking
+  🎟️ Ticket reservation
+  Inventory management (avoid overselling)
+  Scenario
+
+  Two users try to buy the last concert ticket simultaneously.
+
+  A CP system allows only one purchase.
+  The other user receives an error or waits.
+
+  Correctness is maintained.
+
+  Choose AP (Availability + Partition Tolerance)
+
+  Use AP when the application should keep running even if data is temporarily out of sync.
+
+  Examples
+  👍 Social media likes
+  💬 Chat applications
+  📝 Comments
+  News feeds
+  DNS
+  Product catalogs
+  Video streaming recommendations
+  Scenario
+
+  You like a friend's post.
+
+  Your friend may not see the new like for a few seconds, but the app never goes down.
+
+  This is acceptable.
+
+  Mnemonic
+  CP = Correctness first
+  Better to reject a request than return incorrect data.
+  AP = Always available
+  Better to respond immediately, even if the data is temporarily stale.
+
+
+
