@@ -1,0 +1,24 @@
+
+#  {1, 0, 1, 0, 0, 1, 0, 1} push all zero's to the end
+
+   int j=0;  // boundary : everything before j is non zero
+         for(int i=0;i<arr.length; i++){
+           if(arr[i]!=0){
+             int temp=arr[j];
+             arr[j]=arr[i];
+             arr[i]= temp;
+             j++;
+           }
+         }
+
+   i arr[i]	action	 temp = arr[j]	                       after swap	        j
+   0	1	swap	 temp = arr[0] = 1 (not a zero!)	   [1,0,1,0,0,1,0,1]	1
+   1	0	skip	  —	                                     same	            1
+   2	1	swap	 temp = arr[1] = 0	                   [1,1,0,0,0,1,0,1]	2
+   3	0	skip	 —	                                     same	            2
+   4	0	skip	 —	                                     same	            2
+   5	1	swap	 temp = arr[2] = 0	                   [1,1,1,0,0,0,0,1]    3
+   6	0	skip	 —	                                     same	            3
+   7	1	swap	 temp = arr[3] = 0	                    [1,1,1,1,0,0,0,0]	4
+
+   output: [1, 1, 1, 1, 0, 0, 0, 0]

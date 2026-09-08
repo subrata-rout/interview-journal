@@ -80,3 +80,70 @@
        System.out.println();
        }
 
+
+
+  Pattern 1: Boundary Shrinking (a.k.a. Spiral Traversal)
+  The idea: Instead of looping row then col like we've been doing, you keep 4 pointers that mark the current
+  "outer ring" of the matrix — top, bottom, left, right. You print the top row, then the right column,
+  then the bottom row, then the left column — then shrink all 4 boundaries inward by 1 and repeat, until they cross.
+
+  Visualize it on this matrix:
+  1  2  3
+  4  5  6
+  7  8  9
+
+  Spiral order: 1, 2, 3 (top row) → 6, 9 (right col, top already used) → 8, 7 (bottom row, right to left)
+  → 4 (left col, bottom to top) → then boundaries shrink to just 5 in the center.
+
+  The 4 pointers :
+  int top = 0;
+  int bottom = mat.length - 1;
+  int left = 0;
+  int right = mat[0].length - 1;
+
+  The 4 steps of one full "ring":
+
+  1. Print top row, left → right, then top++ (move top boundary down, that row is done)
+  2. Print right column, top → bottom, then right-- (move right boundary left, that column is done)
+  3. Print bottom row, right → left, then bottom-- (move bottom boundary up, that row is done)
+  4. Print left column, bottom → top, then left++ (move left boundary right, that column is done)
+
+  Why do we stop when top > bottom or left > right?
+  Once top has moved past bottom, there are no more rows left between them — the "ring" has collapsed to nothing,
+  meaning every element has already been printed. Same logic for left > right with columns.
+  So the loop condition is:
+  keep going while top <= bottom AND left <= right.
+
+  int top = 0, bottom = mat.length - 1;
+  int left = 0, right = mat[0].length - 1;
+
+  while (top <= bottom && left <= right) {
+
+      // Step 1: top row, left to right
+      for (int c = left; c <= right; c++) {
+          System.out.print(mat[top][c] + " ");
+      }
+      top++;
+
+      // Step 2: right column, top to bottom
+      for (int r = top; r <= bottom; r++) {
+          System.out.print(mat[r][right] + " ");
+      }
+      right--;
+
+      // Step 3: bottom row, right to left — ONLY if a row still remains
+      if (top <= bottom) {
+          for (int c = right; c >= left; c--) {
+              System.out.print(mat[bottom][c] + " ");
+          }
+          bottom--;
+      }
+
+      // Step 4: left column, bottom to top — ONLY if a column still remains
+      if (left <= right) {
+          for (int r = bottom; r >= top; r--) {
+              System.out.print(mat[r][left] + " ");
+          }
+          left++;
+      }
+  }
