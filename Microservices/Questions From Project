@@ -1,0 +1,20 @@
+
+#  How many microservices are there in your application?
+
+  In our application, we have around 15 microservices.
+  Each microservices is designed o handle a specific business function
+  For example, we have separate services for user authentication,payment processing, inventory management,
+  and notifications.
+  We use Spring Boot for most of our microservices
+
+  Each microservices communicates with others via RESTful APIs and sometimes through messaging broker like Kafka
+  for asynchronous communications
+  For deployment, we reply on Docker to containerize our microservices and Kubernetes to manage and orchestrate them.
+
+  We have implemented centralized logging and monitoring using ELK stack and prometheus/ Grafana, which helps us
+  in tracking the health and performance of each microservice.
+
+  Sometimes for internal service to service communication, we opted for gRPC. Its efficient binary serialization
+  and HTTP/2 protocol support help us achieve low latency, high throughput communication between microservices.
+  We use Spring Cloud  Gateway to manage and secure external API calls, streamline service discovery, and enforce API
+  governance policies.
