@@ -147,3 +147,44 @@
           left++;
       }
   }
+
+  Pattern 2: Diagonal Traversal
+  Every cell on the same diagonal shares something in common in its indices. There are two kinds of diagonals,
+  and each has its own rule:
+
+  Main diagonals (going ↘, top-left to bottom-right direction):
+   every cell on the same diagonal has the same value of row - col
+  Anti-diagonals (going ↙, top-right to bottom-left direction):
+   every cell on the same diagonal has the same value of row + col
+
+  1  2  3
+  4  5  6
+  7  8  9
+
+  For row - col:
+  (0,0)→0-0=0, (1,1)→1-1=0, (2,2)→2-2=0 → all three (1,5,9) share row-col=0 → that's the main diagonal
+  Main diagonal (row == col, since row - col = 0):
+  int mainDiagSum = 0;
+  for (int i = 0; i < mat.length; i++) {
+      mainDiagSum += mat[i][i];   // row and col are always the SAME index
+  }
+  System.out.println("Main diagonal sum = " + mainDiagSum);
+
+  For row + col:
+  (0,2)→0+2=2, (1,1)→1+1=2, (2,0)→2+0=2 → all three (3,5,7) share row+col=2 → that's the anti-diagonal
+  Anti-diagonal (row + col == n - 1, where n = number of rows):
+  int antiDiagSum = 0;
+  int n = mat.length;
+  for (int i = 0; i < n; i++) {
+      antiDiagSum += mat[i][n - 1 - i];   // if row = i, col must be (n-1-i) so they sum to n-1
+  }
+  System.out.println("Anti-diagonal sum = " + antiDiagSum);
+
+  Put together
+  int mainDiagSum = 0, antiDiagSum = 0;
+  int n = mat.length;
+  for (int i = 0; i < n; i++) {
+      mainDiagSum += mat[i][i];
+      antiDiagSum += mat[i][n - 1 - i];
+  }
+  System.out.println("Main = " + mainDiagSum + ", Anti = " + antiDiagSum);
