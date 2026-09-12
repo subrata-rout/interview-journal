@@ -180,11 +180,62 @@
   }
   System.out.println("Anti-diagonal sum = " + antiDiagSum);
 
-  Put together
+  Put together for odd matrix 3X3
   int mainDiagSum = 0, antiDiagSum = 0;
   int n = mat.length;
   for (int i = 0; i < n; i++) {
       mainDiagSum += mat[i][i];
       antiDiagSum += mat[i][n - 1 - i];
   }
-  System.out.println("Main = " + mainDiagSum + ", Anti = " + antiDiagSum);
+  int total = mainDiagSum + antiDiagSum;
+        if(n% 2 !=0){
+            total -= mat [n/2][n/2];
+        }
+  return total;
+
+  for even matrix no extra things as they do not share any common cell;
+
+Pattern 3: In-Place Transformation (Rotate Image)
+
+   The pro trick — break rotation into 2 simpler steps you already know:
+
+   Transpose the matrix (flip it along the main diagonal — swap mat[i][j] with mat[j][i])
+   Reverse each row
+
+   Doing these two steps back-to-back = a 90° clockwise rotation.
+   Let's see why, visually:
+   Original:        Transpose:        Reverse each row:
+   1 2 3             1 4 7              7 4 1
+   4 5 6      →      2 5 8      →       8 5 2
+   7 8 9             3 6 9              9 6 3
+
+   Step 1 — Transpose.
+   column-by-column printing
+   int n = mat.length;
+   for (int i = 0; i < n; i++) {
+       for (int j = i + 1; j < n; j++) {   // notice: j starts at i+1, not 0
+           int temp = mat[i][j];
+           mat[i][j] = mat[j][i];
+           mat[j][i] = temp;
+       }
+   }
+
+   Step 2 — Reverse each row
+   Same idea as reversing a string: two pointers, left starting at the beginning of the row and right at the end,
+   swap them and move inward until they meet.
+   for (int i = 0; i < n; i++) {
+       int left = 0, right = n - 1;
+       while (left < right) {
+           int temp = mat[i][left];
+           mat[i][left] = mat[i][right];
+           mat[i][right] = temp;
+           left++;
+           right--;
+       }
+   }
+
+  result :
+  7 4 1
+  8 5 2
+  9 6 3
+
