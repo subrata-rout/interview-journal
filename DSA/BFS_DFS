@@ -45,3 +45,114 @@
     BFS — use when you specifically need the shortest distance/path — because BFS visits things in order of distance
     (1 step away, then 2, then 3...), the first time it reaches a target, that's guaranteed to be the shortest path
     to it.
+
+    Mapping rooms → matrix cells
+
+    In a matrix, each cell (row, col) has up to 4 "doors" — its neighbors:
+
+    up: (row-1, col)
+    down: (row+1, col)
+    left: (row, col-1)
+    right: (row, col+1)
+
+   DFS on a grid :
+   1 1 0
+   1 1 0
+   0 0 1
+
+   Step 1 — the "visited" tracker. Just like you wouldn't want to walk into room A again after already visiting it,
+   we need to remember which cells we've already visited, so we don't visit them again (which could loop forever).
+   boolean[][] visited = new boolean[rows][cols];
+
+   Step 2 — the DFS function itself. In plain English: "Visit this cell. Mark it visited. Then try to visit each of
+   its 4 neighbors — but only if that neighbor is inside the grid, is a 1, and hasn't been visited yet."
+
+   void dfs(int[][] grid, int r, int c, boolean[][] visited) {
+       // Step A: is this a valid cell to even look at?
+       if (rows < 0 || rows >= grid.length || cols < 0 || cols >= grid[0].length) {
+           return; // out of bounds — like trying to walk through a wall, just stop
+       }
+       if (visited[rows][cols] || grid[rows][cols] == 0) {
+           return; // already visited — stop
+       }
+
+       // Step B: this cell is valid and unvisited — visit it
+       visited[rows][cols] = true;
+       System.out.println("Visited: (" + rows + ", " + cols + ")");
+
+       // Step C: try visiting all 4 neighbors
+       dfs(grid, rows - 1, cols, visited); // up
+       dfs(grid, rows + 1, cols, visited); // down
+       dfs(grid, rows, cols - 1, visited); // left
+       dfs(grid, rows, cols + 1, visited); // right
+   }
+
+   BFS on a Grid :
+   A queue works like a line at a shop: whoever gets in line first gets served first (First In, First Out — FIFO).
+   This matters because BFS needs to explore things in the exact order it discovers them — cells 1 step away get
+   explored before cells 2 steps away, because they were added to the queue first.
+
+   Queue<int[]> queue = new LinkedList<>();
+   each int[] holds a {row, col} pair, representing one cell waiting to be explored.
+
+   The three actions that happen at every step of BFS (memorize this shape —
+   it's identical in every BFS-on-grid problem):
+
+   while (!queue.isEmpty()) {
+       int[] current = queue.poll();   // take the next cell out of the queue
+       int r = current[0], c = current[1];
+
+       for (each of the 4 neighbors of (r, c)) {
+           if (neighbor is valid AND not visited yet) {
+               mark neighbor as visited;
+               queue.offer(new int[]{neighborRow, neighborCol});  // add it to the back of the line
+           }
+       }
+   }
+
+   Why is this "ripples spreading outward," like we said with the room example?
+
+   Because of the FIFO nature of the queue: if cell A (distance 0) is processed first,
+   its neighbors (distance 1) get added to the back of the queue. Since the queue serves things in the order they were
+   added, ALL distance-1 cells get processed before ANY distance-2 cell
+   (which only gets added once a distance-1 cell is processed).
+   This guarantees BFS explores in perfect "rings" outward — distance 0, then all of distance 1,
+   then all of distance 2 — automatically, just from how a queue behaves.
+
+   The "level by level" trick — the one genuinely new idea for grid BFS.
+
+   If you need to know how many steps/minutes something took (not just "is it reachable"),
+   you need to track when one "ring" ends and the next begins. This is done by grabbing the queue's current size
+   before processing that ring:
+
+   int steps = 0;
+   while (!queue.isEmpty()) {
+       int size = queue.size();  // exactly how many cells are in THIS ring, right now
+       for (int i = 0; i < size; i++) {
+           // process one cell from this ring, add its neighbors for the NEXT ring
+       }
+       steps++;  // one full ring finished = one step/minute passed
+   }
+
+
+   DFS: recursion, dives deep, visited check + boundary check + base-case check, explores in "as far as possible" order
+   BFS: queue, spreads outward in rings, same visited/boundary checks, explores in "distance order,"
+   has this extra "ring size" trick when distance/steps matter
+
+   Most asked questions:
+   DFS :
+   LC 200 — Number of Islands
+   LC 130 — Surrounded Regions
+   LC 695 — Max Area of Island
+   LC 733 — Flood Fill
+   LC 417 — Pacific Atlantic Water Flow
+   LC 79 — Word Search
+
+   BFS :
+   LC 994 — Rotting Oranges
+   LC 542 — 01 Matrix
+   LC 200 — Number of Islands (BFS version)
+   LC 130 — Surrounded Regions (BFS version)
+   LC 1091 — Shortest Path in Binary Matrix
+   LC 863 / LC 909 (Snakes and Ladders)
+
