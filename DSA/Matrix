@@ -239,3 +239,101 @@ Pattern 3: In-Place Transformation (Rotate Image)
   8 5 2
   9 6 3
 
+  Pattern 3: Set Matrix Zeroes
+   Starting matrix:
+
+   1  1  1
+   1  0  1
+   1  1  1
+
+  Expected final answer:
+
+  1  0  1
+  0  0  0
+  1  0  1
+
+  Step 1: Save whether column 0 has a zero, BEFORE touching anything.
+  Look at column 0: mat[0][0]=1, mat[1][0]=1, mat[2][0]=1 — no zero here. So:
+
+  firstColHasZero = false
+
+  boolean firstColHasZero = false;
+  for (int i = 0; i < rows; i++) {
+      if (mat[i][0] == 0) {
+          firstColHasZero = true;
+      }
+  }
+
+  Step 2: Scan from row 0, but column starting at 1 (skip col 0).
+  Whenever you find a 0, mark it using row 0 and column 0 as "sticky notes."
+  Only mat[1][1] = 0 is found (during row i=1, col j=1).
+
+  mat[i][0] = 0;   // mat[1][0] = 0   → sticky note: "row 1 needs zeroing"
+  mat[0][j] = 0;   // mat[0][1] = 0   → sticky note: "column 1 needs zeroing"
+
+  Visually :
+  1  0  1        ← mat[0][1] became 0 — this is a STICKY NOTE, not real data yet
+  0  0  1        ← mat[1][0] became 0 — this is a STICKY NOTE, not real data yet
+  1  1  1
+
+  for (int i = 0; i < rows; i++) {
+      for (int j = 1; j < cols; j++) {   // j starts at 1 — column 0 is handled separately
+          if (mat[i][j] == 0) {
+              mat[i][0] = 0;   // mark: this row needs zeroing
+              mat[0][j] = 0;   // mark: this column needs zeroing
+          }
+      }
+  }
+
+
+  Notice: we haven't zeroed the actual row 1 / column 1 fully yet — we've only planted 2 markers:
+  one in row 0, one in column 0, saying "hey, row 1 and column 1 need to be zeroed later."
+
+  Step 3: Now use those sticky notes to actually zero out the body of the matrix
+   (skip column 0 again, we handle that last).
+
+  Go cell by cell (only i any row, j from 1 onward) and ask: "does my row's sticky note (mat[i][0]) say zero?
+  OR does my column's sticky note (mat[0][j]) say zero?" If either is true, zero this cell.
+
+  mat[0][1]: column 1's sticky note (mat[0][1]) is 0 → zero it → stays 0
+  mat[0][2]: row 0's sticky note (mat[0][0]=1) not zero, column 2's sticky note (mat[0][2]=1) not zero → stays 1
+  mat[1][1]: row 1's sticky note (mat[1][0]=0) IS zero → zero it → stays 0
+  mat[1][2]: row 1's sticky note (mat[1][0]=0) IS zero → becomes 0
+  mat[2][1]: column 1's sticky note (mat[0][1]=0) IS zero → becomes 0
+  mat[2][2]: neither sticky note is zero → stays 1
+
+  Visually :
+  1  0  1
+  0  0  0
+  1  0  1
+
+  for (int i = 0; i < rows; i++) {
+      for (int j = 1; j < cols; j++) {
+          if (mat[i][0] == 0 || mat[0][j] == 0) {
+              mat[i][j] = 0;
+          }
+      }
+  }
+
+  Step 4: Handle row 0 using mat[0][0]. mat[0][0] = 1 (not zero) → row 0 is left alone. ✅ Already correct.
+
+  if (mat[0][0] == 0) {
+      for (int j = 0; j < cols; j++) {
+          mat[0][j] = 0;
+      }
+  }
+
+  Step 5: Handle column 0 using our saved firstColHasZero. We saved false → column 0 is left alone. ✅ Already correct.
+
+  Final result :
+  1  0  1
+  0  0  0
+  1  0  1
+
+  if (firstColHasZero) {
+      for (int i = 0; i < rows; i++) {
+          mat[i][0] = 0;
+      }
+  }
+
+
