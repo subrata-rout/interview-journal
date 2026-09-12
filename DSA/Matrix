@@ -307,7 +307,7 @@ Pattern 3: In-Place Transformation (Rotate Image)
   0  0  0
   1  0  1
 
-  for (int i = 0; i < rows; i++) {
+  for (int i = rows-1; i>=0 ; i--) {
       for (int j = 1; j < cols; j++) {
           if (mat[i][0] == 0 || mat[0][j] == 0) {
               mat[i][j] = 0;

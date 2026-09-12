@@ -1,0 +1,47 @@
+
+    BFS = Breadth First Search. Think of dropping a stone in water and watching ripples spread outward —
+          you explore everything 1 step away first, then everything 2 steps away, then 3 steps away,
+          expanding outward in rings.
+
+    DFS = Depth First Search. Think of exploring a maze by picking one path and following it as far as you possibly can,
+          until you hit a dead end — only then do you backtrack and try the next unexplored path.
+
+    A visual example — let's use a simple grid of rooms
+    A - B - C
+    |       |
+    D       E
+
+    (A connects to B and D. B connects to A and C. C connects to B and E.)
+
+    DFS starting from A: Go as deep as possible before backtracking.
+
+    Visit A → go to B (deeper) → go to C (deeper) → go to E (deeper, dead end) → backtrack to C → nothing new →
+    backtrack to B → nothing new → backtrack to A → go to D → dead end → done.
+    Order visited: A, B, C, E, D
+
+    BFS starting from A: Visit everything 1 step away first, then 2 steps away.
+
+    Step 0: A
+    Step 1 (1 step from A): B, D
+    Step 2 (2 steps from A): C (from B)
+    Step 3 (3 steps from A): E (from C)
+    Order visited: A, B, D, C, E
+
+    Notice the difference:
+    DFS commits to one direction and goes deep before trying anything else.
+    BFS spreads out evenly, layer by layer, like ripples.
+
+    Why does this matter for a matrix?
+
+    A matrix cell has neighbors too — up, down, left, right — just like rooms have doors.
+    So "explore everything connected to this cell" is the exact same idea as exploring rooms.
+    DFS on a matrix = pick a cell, go as far as you can in one direction (recursively visiting neighbors),
+    backtrack when stuck.
+    BFS on a matrix = visit all neighbors 1 step away first, then 2 steps away, etc. (using a queue).
+
+    When do you use which?
+    DFS — simpler to write (just recursion), good when you just need to find/mark/count connected things
+    (like counting islands) — you don't care about the order or distance, just "are these connected?"
+    BFS — use when you specifically need the shortest distance/path — because BFS visits things in order of distance
+    (1 step away, then 2, then 3...), the first time it reaches a target, that's guaranteed to be the shortest path
+    to it.
