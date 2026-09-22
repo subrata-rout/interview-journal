@@ -1,0 +1,18 @@
+
+ # Basics - Writing Data
+
+   Query and What it does :-
+
+   Add a row ->
+   INSERT INTO orders (id, amount, status) VALUES (1, 500, 'PENDING');
+
+   Modify existing rows (ALWAYS use WHERE, or you update the whole table)->
+   UPDATE orders SET status = 'PAID' WHERE id = 1;
+
+   Remove rows (ALWAYS use WHERE)->
+   DELETE FROM orders WHERE id = 1;
+
+   Wipe all rows instantly, resets auto-increment — no WHERE clause possible, can't be rolled back on most engines ->
+   TRUNCATE TABLE orders;
+
+
