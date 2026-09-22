@@ -1,0 +1,27 @@
+
+ # EveryDay Git
+
+  Command	What it does
+
+  git status -	What's changed, staged vs unstaged
+
+  git add file / git add . -	Stage changes
+
+  git commit -m "message" -	Commit staged changes
+
+  git push origin branch-name	- Push to remote
+
+  git pull	- Fetch + merge from remote
+
+  git fetch -	Download remote changes without merging
+
+  git checkout -b feature/xyz -	Create + switch to a new branch
+
+  git switch feature/xyz	- Switch branches (newer, clearer than checkout)
+
+  git branch -d feature/xyz	- Delete a local branch
+  git log --oneline --graph --all	- Compact visual commit history
+
+  git diff -	Unstaged changes vs last commit
+
+  git diff --staged	- Staged changes vs last commit
