@@ -1,0 +1,49 @@
+ # Linux Basics
+
+   Command - What it does
+
+   pwd	- Print current directory
+
+   ls -la -	List all files (incl. hidden) with details
+
+   cd path/	- Change directory
+
+   mkdir -p a/b/c -	Create nested directories in one go
+
+   cp file1 file2 -	Copy
+   mv file1 newname	- Move / rename
+
+   rm file / rm -rf dir/ -	Delete file / delete directory recursively force (careful — no undo)
+
+   cat file -	Print file contents
+   less file -	Scroll through a large file
+   tail -f app.log -	Follow a log file live as it's written
+   head -n 50 file -	First 50 lines
+
+   grep -rn "TODO" . -	Search text recursively, show line numbers
+
+   find . -name "*.java" -	Find files by pattern
+
+   chmod +x script.sh	- Make a file executable
+
+   `ps aux -	grep java`
+
+   kill -9 <pid> -	Force-kill a process
+
+   lsof -i :8080 -	Find what process is using port 8080
+
+   df -h	- Disk space usage
+
+   top / htop -	Live CPU/memory usage
+
+   curl -X POST http://localhost:8080/api -d '{"a":1}' -H "Content-Type: application/json"	- Send an HTTP request
+                                                                                              from the terminal
+   echo $PATH	- Print an environment variable
+
+   export VAR=value  -	Set an environment variable for the session
+
+   `history -	grep docker`
+
+   `command1 -	command2`
+
+   command > out.txt / command >> out.txt	- Redirect output to a file (overwrite / append)
