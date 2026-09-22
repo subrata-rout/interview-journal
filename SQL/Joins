@@ -1,0 +1,46 @@
+
+ #  Joins
+    Given orders(id, customer_id, amount) and customers(id, name):
+
+    Query and What it does :-
+
+    Only rows with a match in both tables ->
+    SELECT o.*, c.name FROM orders o INNER JOIN customers c ON o.customer_id = c.id;
+
+    All orders, even if the customer is missing (nulls for unmatched) ->
+    SELECT o.*, c.name FROM orders o LEFT JOIN customers c ON o.customer_id = c.id;
+
+    All rows from the right table, matched where possible
+    (rarely used — usually rewritten as a LEFT JOIN by swapping table order) ->
+    SELECT c.*, o.* FROM customers c RIGHT JOIN orders o ON c.id = o.customer_id;
+
+    All rows from both sides, matched where possible
+    (not supported directly in MySQL — emulate with UNION of LEFT and RIGHT joins)->
+
+    Postgres / SQL Server / Oracle (has FULL OUTER JOIN natively)
+    SELECT o.id AS order_id, o.amount, c.id AS customer_id, c.name
+    FROM orders o
+    FULL OUTER JOIN customers c ON o.customer_id = c.id;
+
+    MySQL (no FULL OUTER JOIN — build it from LEFT + RIGHT + UNION):
+    SELECT o.id AS order_id, o.amount, c.id AS customer_id, c.name
+    FROM orders o
+    LEFT JOIN customers c ON o.customer_id = c.id
+
+    UNION
+
+    SELECT o.id AS order_id, o.amount, c.id AS customer_id, c.name
+    FROM orders o
+    RIGHT JOIN customers c ON o.customer_id = c.id;
+
+    Table joined to itself — e.g., employee-to-manager ->
+    SELECT a.id, b.id FROM employees a, employees b WHERE a.manager_id = b.id; (or SELF JOIN)
+
+    Every combination of rows from both tables
+    (Cartesian product) — rare, watch for accidental cross joins from missing ON clauses ->
+    SELECT * FROM a CROSS JOIN b;
+
+    Classic "anti-join" pattern ->
+    Find customers with no orders: SELECT c.* FROM customers c LEFT JOIN
+    orders o ON c.id = o.customer_id WHERE o.id IS NULL;
+
