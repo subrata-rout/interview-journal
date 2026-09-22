@@ -1,0 +1,30 @@
+
+ # Window Functions (useful)
+
+  Query and what it does :-
+
+  Sequential rank, no ties ->
+  SELECT id, amount, ROW_NUMBER() OVER (ORDER BY amount DESC) AS rn FROM orders;
+
+  Rank with gaps on ties (1,2,2,4) ->
+  SELECT id, amount, RANK() OVER (ORDER BY amount DESC) AS rnk FROM orders;
+
+  Rank without gaps on ties (1,2,2,3) ->
+  SELECT id, amount, DENSE_RANK() OVER (ORDER BY amount DESC) AS drnk FROM orders;
+
+  Aggregate per group, without collapsing rows (unlike GROUP BY) ->
+  SELECT customer_id, amount, SUM(amount) OVER (PARTITION BY customer_id) AS customer_total FROM orders;
+
+  Running/cumulative total ->
+  SELECT id, amount, SUM(amount) OVER (ORDER BY created_at) AS running_total FROM orders;
+
+  Value from the previous row (great for delta/change calculations) ->
+  SELECT id, amount, LAG(amount) OVER (ORDER BY created_at) AS prev_amount FROM orders;
+
+   Value from the next row->
+   SELECT id, amount, LEAD(amount) OVER (ORDER BY created_at) AS next_amount FROM orders;
+
+   "Top 3 orders per customer" pattern — asked constantly in interviews ->
+   Top-N per group: SELECT * FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY amount DESC)
+   rn FROM orders) t WHERE rn <= 3;
+

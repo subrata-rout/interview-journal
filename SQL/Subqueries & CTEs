@@ -18,4 +18,5 @@
 
   Walk a hierarchy/tree->
   Recursive CTE (e.g., org chart): WITH RECURSIVE org AS (SELECT id, manager_id FROM employees
-  WHERE manager_id IS NULL UNION ALL SELECT e.id, e.manager_id FROM employees e JOIN org o ON e.manager_id = o.id) SELECT * FROM org;
+  WHERE manager_id IS NULL UNION ALL SELECT e.id, e.manager_id FROM employees e JOIN org o ON e.manager_id = o.id)
+  SELECT * FROM org;
