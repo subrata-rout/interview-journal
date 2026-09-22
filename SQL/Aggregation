@@ -1,0 +1,28 @@
+
+ # Aggregation
+
+   Query and what it does :-
+
+   Row count->
+   SELECT COUNT(*) FROM orders;
+
+   Count of unique values ->
+   SELECT COUNT(DISTINCT customer_id) FROM orders;
+
+   Total ->
+   SELECT SUM(amount) FROM orders;
+
+   Average->
+   SELECT AVG(amount) FROM orders;
+
+   Smallest/ largest value ->
+   SELECT MIN(amount), MAX(amount) FROM orders;
+
+   Count per category->
+   SELECT status, COUNT(*) FROM orders GROUP BY status;
+
+   Filter after aggregation (WHERE can't be used with aggregates — HAVING is the equivalent)->
+   SELECT customer_id, SUM(amount) FROM orders GROUP BY customer_id HAVING SUM(amount) > 10000;
+
+
+   * WHERE vs HAVING: WHERE filters rows before grouping; HAVING filters groups after aggregation.
