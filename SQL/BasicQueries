@@ -1,0 +1,43 @@
+
+# Basics - Reading Data
+
+  Query	and What it does :-
+
+  Fetch all columns, all rows ->
+  SELECT * FROM orders;
+
+  Fetch specific columns only ->
+  SELECT id, amount FROM orders;
+
+  Unique values in a column ->
+  SELECT DISTINCT status FROM orders;
+
+  Filter rows ->
+  SELECT * FROM orders WHERE status = 'PAID';
+
+  Combine conditions (AND/OR/NOT) ->
+  SELECT * FROM orders WHERE amount > 1000 AND status = 'PAID';
+
+  Match any value in a list ->
+  SELECT * FROM orders WHERE status IN ('PAID','REFUNDED');
+
+  Range filter (inclusive) ->
+  SELECT * FROM orders WHERE amount BETWEEN 100 AND 500;
+
+  Pattern match (%=any chars, _=one char) ->
+  SELECT * FROM orders WHERE customer_name LIKE 'A%';
+
+  Check for NULL (never use = NULL) ->
+  SELECT * FROM orders WHERE deleted_at IS NULL;
+
+  Sort (ASC default, DESC for newest first)->
+  SELECT * FROM orders ORDER BY created_at DESC;
+
+  Cap the number of rows returned ->
+  SELECT * FROM orders LIMIT 10;
+
+  Pagination — skip 20, take next 10 ->
+  SELECT * FROM orders LIMIT 10 OFFSET 20;
+
+  Top-1 by some metric ->
+  SELECT * FROM orders ORDER BY amount DESC LIMIT 1;
