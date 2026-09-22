@@ -1,0 +1,21 @@
+
+  # Subqueries and CTEs
+
+  Query and What it does :-
+
+  Subquery in WHERE->
+  SELECT * FROM orders WHERE customer_id IN (SELECT id FROM customers WHERE country = 'IN');
+
+  Correlated subquery — re-run per outer row (can be slow at scale)->
+  SELECT (SELECT COUNT(*) FROM orders WHERE customer_id = c.id) AS order_count, c.name FROM customers c;
+
+  Subquery in FROM (derived table)->
+  SELECT * FROM (SELECT customer_id, SUM(amount) total FROM orders GROUP BY customer_id) t WHERE t.total > 5000;
+
+  CTE — same idea as a derived table but more readable, can be chained/named, referenced multiple times->
+  WITH high_value AS (SELECT customer_id, SUM(amount) total FROM orders GROUP BY customer_id HAVING SUM(amount) > 5000)
+  SELECT * FROM high_value;
+
+  Walk a hierarchy/tree->
+  Recursive CTE (e.g., org chart): WITH RECURSIVE org AS (SELECT id, manager_id FROM employees
+  WHERE manager_id IS NULL UNION ALL SELECT e.id, e.manager_id FROM employees e JOIN org o ON e.manager_id = o.id) SELECT * FROM org;
