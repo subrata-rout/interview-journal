@@ -1,0 +1,16 @@
+
+  # Performance / Explain
+
+   Query and what it does :-
+
+   Show the query plan — is it using an index or scanning the whole table?
+   EXPLAIN SELECT * FROM orders WHERE customer_id = 5;
+
+   Plan plus actual execution timing ->
+   EXPLAIN ANALYZE SELECT ...; (Postgres)
+
+   Red flag — full table scan, usually means a missing index->
+   Look for type: ALL (MySQL) or Seq Scan (Postgres) in the plan
+
+   List existing indexes on a table->
+   SHOW INDEXES FROM orders; (MySQL) / \d orders (psql)
