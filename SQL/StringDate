@@ -1,0 +1,26 @@
+
+  # String / Date functions
+
+   Query and what it does :-
+
+   String concatenation -> CONCAT(first_name, ' ', last_name)
+
+   Slice a string -> SUBSTRING(email, 1, 5)
+
+   Case conversion -> UPPER(name) / LOWER(name)
+
+   Strip whitespace -> TRIM (name)
+
+   Current date-time -> NOW() / CURRENT_TIMESTAMP
+
+   Extract just the date part -> DATE(created_at)
+
+   Difference between dates -> DATEDIFF(NOW(), created_at) (MySQL) / NOW() - created_at (Postgres)
+
+   Add/subtract time -> DATE_ADD(created_at, INTERVAL 7 DAY)
+
+   Return first non-null value — handy default-value pattern -> COALESCE(discount, 0)
+
+   Conditional logic inline in a SELECT ->  CASE WHEN amount > 1000 THEN 'HIGH' WHEN amount >
+                                            100 THEN 'MEDIUM' ELSE 'LOW' END AS tier
+
