@@ -1,0 +1,27 @@
+
+  # Transactions
+
+  START TRANSACTION;  -- or BEGIN;
+  UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+  UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+  COMMIT;   -- or ROLLBACK; on failure
+
+  Concept and what it does :-
+
+  START TRANSACTION / COMMIT / ROLLBACK
+  Group statements so they succeed or fail atomically
+
+  SAVEPOINT sp1; ... ROLLBACK TO sp1;
+  Partial rollback within a larger transaction
+
+  SELECT ... FOR UPDATE;
+  Row-level lock — read a row and block others from modifying it until your transaction ends
+  (classic pattern for "reserve balance" logic)
+
+  Isolation levels: READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE
+  Trade-off between consistency and concurrency — set with SET TRANSACTION ISOLATION LEVEL ...
+
+  Idempotency check pattern: INSERT INTO payments (idempotency_key, ...)
+  VALUES (?, ...) ON DUPLICATE KEY UPDATE id = id; (MySQL) or ON CONFLICT (idempotency_key) DO NOTHING (Postgres)
+  Insert-or-ignore using a unique constraint — the DB-level backbone of the idempotency work you already do in code
+
