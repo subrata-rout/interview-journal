@@ -1,0 +1,30 @@
+
+ # Schema /DDL
+
+  Query and what it does :-
+
+  Create a table ->
+  CREATE TABLE orders (id BIGINT PRIMARY KEY, customer_id BIGINT, amount DECIMAL(10,2),
+  status VARCHAR(20), created_at TIMESTAMP);
+
+  Add a column ->
+  ALTER TABLE orders ADD COLUMN currency VARCHAR(3) DEFAULT 'INR';
+
+  Change column type (MySQL syntax; ALTER COLUMN ... TYPE in Postgres) ->
+  ALTER TABLE orders MODIFY COLUMN amount DECIMAL(12,2);
+
+  Remove a column ->
+  ALTER TABLE orders DROP COLUMN currency;
+
+  Speed up lookups/joins on that column ->
+  CREATE INDEX idx_orders_customer_id ON orders(customer_id);
+
+  Index + enforce uniqueness — directly relevant to your idempotency-key work->
+  CREATE UNIQUE INDEX idx_orders_idempotency_key ON orders(idempotency_key);
+
+  Enforce referential integrity ->
+  ALTER TABLE orders ADD CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customers(id);
+
+  Delete the table entirely (irreversible) ->
+  DROP TABLE orders;
+
