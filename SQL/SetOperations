@@ -1,0 +1,16 @@
+
+ # Set Operations
+
+  Query and what it does :-
+
+  Combine + dedupe ->
+  SELECT id FROM a UNION SELECT id FROM b;
+
+  Combine, keep duplicates (faster — no dedup pass) ->
+  SELECT id FROM a UNION ALL SELECT id FROM b;
+
+  Rows in both ->
+  SELECT id FROM a INTERSECT SELECT id FROM b;
+
+  Rows in a but not b ->
+  SELECT id FROM a EXCEPT SELECT id FROM b; (MySQL: use NOT IN/LEFT JOIN pattern)
