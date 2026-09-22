@@ -1,0 +1,26 @@
+
+ # Git Fixing things
+
+  git stash / git stash pop	 - Temporarily shelve uncommitted changes / bring them back
+
+  git reset --soft HEAD~1	- Undo last commit, keep changes staged
+
+  git reset --hard HEAD~1	- Undo last commit, discard changes entirely (careful)
+
+  git revert <commit>	- Undo a commit by creating a new inverse commit (safe for shared/pushed history)
+
+  git commit --amend -m "new message" -	Edit the last commit's message or contents
+
+  git rebase main	- Replay your branch's commits on top of latest main
+
+  git rebase -i HEAD~3	- Interactively squash/reorder/edit last 3 commits
+
+  git cherry-pick <commit>	- Apply a specific commit from another branch
+
+  git merge --abort / git rebase --abort -	Bail out of a conflicted merge/rebase cleanly
+
+  git blame file	- See who last changed each line, and in which commit
+
+  git log -p -- file	- Full history of changes to a specific file
+
+  git reflog	- Recovery net — shows every HEAD movement, even after a "lost" reset

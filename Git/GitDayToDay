@@ -22,6 +22,6 @@
   git branch -d feature/xyz	- Delete a local branch
   git log --oneline --graph --all	- Compact visual commit history
 
-  git diff -	Unstaged changes vs last commit
+  git diff - Unstaged changes vs last commit
 
   git diff --staged	- Staged changes vs last commit
