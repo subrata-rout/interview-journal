@@ -1,0 +1,23 @@
+
+  String & Exception Handling Scenarios
+  1. Your application throws OutOfMemoryError due to Strings. Why does this happen?
+  2. How would you optimize heavy string
+  concatenation inside loops?
+  3. When should checked exceptions be
+  converted into unchecked exceptions?
+  4. How do you handle exceptions in REST APls in real-world applications?
+  5. How do you log exceptions without losing the root cause?
+  6. Why is catching Exception or Throwable
+  considered a bad practice?
+
+  Collections & Data Structure Scenarios
+
+  7. You used a HashMap as a cache key, and entries disappear. Why?
+  8. How would you design a thread-safe in-memory cache?
+  9. Why does ConcurrentHashMap not allow null keys or values?
+  10. Sorting millions of objects Comparable or Comparator? Why?
+  11. How do you avoid
+  ConcurrentModificationException?
+  12. When would you choose TreeMap over
+  HashMap in real systems?
+  13. How do poor implementations of equals) and hashCode() affect performance?

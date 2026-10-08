@@ -1,0 +1,333 @@
+
+
+  Core Java & Coding
+
+  1. How do you reverse a String in Java?
+  2. How do you find the frequency of each character in a String?
+  3. What is deadlock in Java?
+  4. What is a race condition?
+  5. What is the difference between "volatile", "transient", and locking?
+  6. What is the difference between String, StringBuilder, and StringBuffer?
+  7. What is shallow copy vs deep copy?
+
+  🌱 Spring Boot
+
+  8. What is "@Qualifier" and when do we use it?
+  9. What is the difference between "@Service" and "@Repository"?
+  10. How do you read properties from "application.properties"?
+  11. What is configuration in Spring Boot?
+  12. What are Spring Profiles?
+  13. How do you activate a profile based on the environment?
+  14. How do you implement global exception handling?
+  15. What is the difference between Filter and Interceptor?
+  16. How can you modify an HTTP request before it reaches the controller?
+
+  🔐 Spring Security
+
+  17. What is Basic Authentication?
+  18. Explain the Spring Security request flow.
+  19. What is the difference between Authentication and Authorization?
+  20. How does "SecurityFilterChain" work?
+
+
+🔄 Microservices
+
+21. What is the difference between Monolithic and Microservices architecture?
+22. How would you migrate a monolithic application to microservices?
+23. What is Database-per-Microservice?
+24. How can you configure multiple databases in Spring Boot?
+25. How do microservices communicate with each other?
+26. What is OpenFeign?
+27. What is the Saga pattern?
+28. What happens if a service fails during a Saga transaction?
+29. What is Saga Choreography?
+30. Can Saga be implemented without Kafka?
+
+⚡ Resilience & Messaging
+
+31. What is Rate Limiting?
+32. What are the different Rate Limiting algorithms?
+33. What is Fault Tolerance?
+34. What is a Circuit Breaker?
+35. What is Resilience4j?
+36. What is a Dead Letter Queue (DLQ)?
+37. What is "@KafkaListener"?
+
+#CoreJava & #Java 8
+1. What are the key features introduced in Java 8?
+2. Difference between map() and flatMap().
+3. What are intermediate and terminal operations in Stream API?
+4. Functional interface vs marker interface.
+5. Can we overload the main() method? Which one does JVM execute?
+6. Difference between this and super keywords.
+7. How do you create and handle custom exceptions?
+
+#Multithreading & Concurrency
+1. Difference between Runnable and Callable.
+2. Difference between start() and run().
+3. Difference between wait() and sleep().
+4. What is synchronization in Java?
+5. Explain Java memory areas: Heap, Stack, Method Area, and Program Counter.
+6. What is garbage collection? What is the purpose of finalize()?
+
+#Coding & SQL
+1. Find the minimum-length subarray whose sum equals a given target.
+2. Write an SQL query to rank employees based on their experience.
+3. Difference between RANK(), DENSE_RANK(), and ROW_NUMBER().
+4. Explain the order of execution of SQL query clauses.
+
+
+Core Java & Concurrency
+1️⃣ Abstract Class vs Interface after Java 8
+2️⃣ Explain Locking in Java.
+3️⃣ wait() vs notify() vs notifyAll()
+4️⃣ ReentrantLock vs ReentrantReadWriteLock
+5️⃣ Future vs CompletableFuture
+6️⃣ Explain the internal working of HashMap.
+7️⃣ Fail-Fast vs Fail-Safe
+8️⃣ What is ConcurrentModificationException and when does it occur?
+9️⃣ Explain Optional and its practical usage.
+🔟 Explain Generics — extends vs super.
+🌱 Spring & Spring Boot
+1️⃣1️⃣ Difference between:
+@RestController vs @Service vs @Repository vs @Component
+1️⃣2️⃣ @Component vs @Configuration + @Bean
+1️⃣3️⃣ How would you implement a Global Exception Handler?
+1️⃣4️⃣ Filter vs Interceptor — what's the difference and when would you use each?
+🗄️ Hibernate & JPA
+1️⃣5️⃣ Explain Hibernate Second-Level Cache.
+1️⃣6️⃣ What is the N+1 Query Problem?
+👉 How would you identify and solve it?
+🏗️ Microservices & Resilience
+1️⃣7️⃣ Saga Pattern — Orchestration vs Choreography
+1️⃣8️⃣ Explain resilience patterns:
+🔹 Circuit Breaker
+🔹 Retry
+🔹 Bulkhead
+🔹 Jitter
+1️⃣9️⃣ How do Microservices communicate securely?
+2️⃣0️⃣ What are the different approaches for Microservice-to-Microservice communication?
+⚡ Kafka
+2️⃣1️⃣ What is a Kafka Consumer Group?
+2️⃣2️⃣ Explain Kafka Offsets.
+2️⃣3️⃣ What are Topics and Partitions?
+2️⃣4️⃣ What is a Dead Letter Queue (DLQ)?
+2️⃣5️⃣ Explain Kafka Acknowledgements (ACKs).
+2️⃣6️⃣ How does Kafka Replication work?
+🗄️ SQL & Database
+2️⃣7️⃣ What are Database Indexes?
+2️⃣8️⃣ What is a Composite Key?
+2️⃣9️⃣ What are Stored Procedures and Triggers?
+3️⃣0️⃣ Write an SQL query to find employees whose salary is greater than their manager's salary.
+☕ Java Streams
+3️⃣1️⃣ Given a list of integers:
+👉 Reverse the order
+👉 Keep distinct values
+👉 Place odd numbers first
+👉 Place even numbers after them
+💻 Coding Round
+3️⃣2️⃣ Valid Brackets
+Given an expression containing:
+() [] {}
+Determine whether the brackets are correctly balanced.
+
+Can you explain the DRY principle?
+2.     Functional interface vs marker interface.
+3.     Difference between map() and flatMap().
+4.     How IdentityHashMap differs from a normal HashMap?
+5.     What are intermediate and terminal operations in Stream API?
+6.     What are the key features introduced in Java 8?
+7.     Can we overload the main() method? Which one does JVM execute?
+8.     Do you know about Kafka schema registry?
+9.     How do you create and handle custom exceptions?
+10. What is synchronization in Java?
+11. When API Gateway generates a JWT token and forwards a request to microservice A, should microservice A validate the token again?
+12. What is garbage collection? What is the purpose of finalize()?
+13. Difference between Runnable and Callable.
+14. Explain Java memory areas: Heap, Stack, Method Area, and Program Counter.
+15. Difference between start() and run().
+16. Find the minimum-length subarray whose sum equals a given target.
+17. Write an SQL query to rank employees based on their experience.
+18. Difference between RANK(), DENSE_RANK(), and ROW_NUMBER().
+19. Explain the order of execution of SQL query clauses.
+20. What will happen and how will we handle the scenario when a database crashes while consuming data from Kafka?
+21. What is a complex scenario or problem you have faced recently, and what techniques did you use to troubleshoot it?
+
+
+
+🔹 Core Java, JVM & Concurrency
+1. Explain the internal workings of ConcurrentHashMap in Java 8+.
+2. How do JVM Garbage Collection pauses affect applications, and how would you debug them in production?
+3. How would you process 1,000 tasks with only 10 concurrent workers, implement retries, and ensure graceful shutdown?
+4. Explain the Spring Bean lifecycle and how circular dependencies occur.
+
+🔹 AI-Assisted Development & Codebase Exploration
+5. Which AI coding tool are you using, and how would you use it to identify all APIs in a Spring Boot project?
+6. How can AI tools scan a large codebase efficiently without consuming excessive tokens?
+7. What is grep, and how is it useful for searching through a codebase?
+
+🔹 Spring Boot, JPA & Production Debugging
+8. How would you debug high API latency in a Spring Boot application?
+9. Explain configuration management using @ConfigurationProperties and Spring profiles.
+10. What is the N+1 query problem, and how can it be resolved?
+11. Explain optimistic vs. pessimistic locking in JPA.
+12. Filter vs. Interceptor in Spring Boot.
+13. How would you investigate slow JPA queries on large tables?
+14. How would you debug a slow database query after significant data growth?
+15. How would you safely update 10 million rows in production?
+16. How would you improve a legacy Spring Boot application?
+17. During code review, how would you address duplicated code, large methods, and insufficient tests?
+
+🔹 Security & Authentication
+18. What is OWASP, and what are some common application security risks?
+19. What is CSRF, and how can it be prevented?
+20. Explain the JWT authentication flow in Spring Security.
+21. Authentication vs. authorization. What is an IDOR vulnerability?
+22. Explain an access-token and refresh-token architecture.
+
+🔹 Microservices & System Design
+23. Explain the Saga pattern for an order-payment-inventory workflow.
+24. How would you handle cascading failures using circuit breakers and bulkheads?
+25. How would you design a system handling 10,000 RPS when a downstream service supports only 1,000 RPS?
+26. How would you handle duplicate Kafka event processing and ensure idempotency?
+27. How do you maintain event ordering in Kafka?
+28. Explain Kafka exactly-once semantics.
+29. How would you investigate a 5% HTTP 500 error rate after a production release?
+
+🔹 SQL & Data
+30. Write a query to find the top 5 customers by revenue in each region.
+
+🔹 React & Frontend Troubleshooting
+31. The frontend screen is lagging, but the API responds quickly without errors. How would you debug it?
+32. Explain React re-rendering and optimization techniques.
+33. Context API vs. Redux vs. TanStack Query.
+34. How would you design React architecture for an application with 100+ screens?
+
+🔹 Round 1 – Technical
+• Tell me about yourself & explain your project architecture.
+• Internal working of "HashMap".
+• "HashMap" vs "ConcurrentHashMap".
+• "Synchronized" vs "ReentrantLock".
+• Design a login authentication Controller. What security measures/headers would you use? (asked to write complete java code on notepad)
+• How would you handle multiple dependent services and service failures?
+• What is an Idempotency Key? How does it help to prevent multiple payment request from same user client?
+• You have one API which needs to be interacted with client server? What all phases you will consider and design the system.
+• How do you resolve Git merge conflicts?
+• Angular Pipes & component-to-component communication.
+• Observable uses
+• How do you handle browser sessions?
+
+🔹 Round 2 – Technical
+• Explain SOLID principles with examples.
+• Design an LRU Cache.
+• Synchronous vs asynchronous communication.
+• Dependency injection - which is preferred among Field vs Constructor vs Setter and why.
+• Exception handling in Spring Boot.
+• "@ControllerAdvice" vs "@RestControllerAdvice".
+• Handling "HttpClientErrorException".
+• Explain Saga Architecture.
+• Caching vs Pagination - Why use pagination when caching can also store data?
+• How would you schedule a batch Job. Why do we need to schedule a job in backend application?
+• Micro Frontend vs Mini Frontend.
+• Can Micro Frontends use multiple tech stacks?
+• Application packaging → deployment process.
+• AWS services, S3 & Lambda.
+• Kubernetes deployment and rollout commands.
+
+🔹 Round 3 – Techno-Managerial
+• Explain the complete request flow from Postman/Browser to the service response.
+• How do you manage conflicts in a project?
+• Explain OAuth architecture.
+• What is JWT? Is it stateful or stateless?
+• What happens if someone modifies a JWT claim such as expiry?
+• How would you handle disagreement with colleagues regarding your solution?
+• Why Deloitte when you already have other offers?
+• Are you comfortable working with a new tech stack?
+
+🎯 My key takeaways:
+
+✅ Strong fundamentals matter.
+✅ Know your project architecture end-to-end.
+✅ Be prepared across Backend, Frontend, Cloud & DevOps along with System Design
+✅ Understand the why behind technologies, not just definitions.
+✅ Managerial rounds test communication, ownership and problem-solving.
+
+
+R-2
+Round 2
+
+Started with introduction and focused on my day to day responsibilities.
+Discussed modules i worked on and end-to-end flow of the project.
+Some counter questions on the tech stack we use, like why you use redis, why kafka not something else.
+
+Started with a DSA Question the problem was solved using a sliding window.
+
+It took me 8-10min problem statement was weird like train arrivals and departures but the interviewer help me to understand it better as he was answering the question l've ask like some constraints and edge cases.
+
+Then he asked time and space complexity.
+Then we jump to some java questions like.
+Implement own exception class.
+How you will make the class immutable, how many ways are there to make it immutable?
+Asked which architecture do we use?
+Saga, do per service and containerization, @ transactional
+
+Diamond problem - @ primary @ qualifier
+Some spring boot fundamentals also asked.
+DB - how we can write native query (native vs jpql)
+Then interviewer asked me to write one SQL query it was easy - join based.
+Emp and dept, count of emp/dept
+
+Some scenario based questions also there-Like l'm just putting one I found on my Notion doc.
+
+Production Support - API latency:
+You are on production support. Suddenly, onboarding API latency increases from 200ms to 5 secs, and the error rate is also increasing, What would you do?
+
+(Hint: discuss long running transactions, GC issues, theread related blocks, network problems, resource starvation, logging issues, broker failures, step by step production incident analysis)
+
+Note - this type of questions l've practice using claude.
+Interview asked me which Al tools we use and which for what type of work.
+
+60min, 2 panelist
+
+
+Write a program to find the maximum sum of B consecutive elements in an integer array.
+Explain the approach used to solve the consecutive maximum sum problem.
+A={1,2,3,4} b=3
+output: 12
+How do you calculate the length of an array in Java?
+How do you find the size of a List in Java?
+What are SOLID principles?
+Which design patterns have you worked on?
+What is the Factory Design Pattern?
+Where have you used the Factory pattern in real-time projects?
+What is the volatile keyword in Java?
+Can volatile ensure thread safety?
+How does HashMap work internally?
+How does HashMap handle collisions?
+What is indexing in SQL?
+How does indexing improve query performance?
+When should indexes be avoided?
+Have you worked on AWS?
+What is AWS Lambda?
+How does AWS Lambda integrate with other services?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
