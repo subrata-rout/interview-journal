@@ -1,0 +1,54 @@
+
+  # Method overloading vs overriding — compile-time vs runtime resolution.
+
+  method overloading and method overriding are two types of polymorphism.
+
+  The main difference is how Java decides which method to execute:
+  - Overloading → Compile-time polymorphism: The compiler decides which method to call based on the method arguments.
+  - Overriding → Runtime polymorphism: The JVM decides which implementation to execute based on the actual object type.
+  Let's understand both with Java examples.
+  1. Method Overloading (Compile-time polymorphism)
+  Definition: When multiple methods have the same name but different parameter lists within a class, it is called
+  method overloading.
+
+  Parameters can differ by:
+  - Number of parameters.
+  - Type of parameters.
+  - Order of parameters.
+
+  2. Method Overriding (Runtime polymorphism)
+  Definition: When a child class provides its own implementation of a method already defined in its parent class,
+  it is called method overriding.
+
+  Conditions:
+  - Same method name.
+  - Same parameter list.
+  - Compatible return type (covariant return types are allowed).
+  - Inheritance is required.
+  - Access level cannot be more restrictive than the parent method.
+
+
+  Q1. Can we overload the main method in Java?
+
+  Yes. We can overload the main method, but JVM executes only the standard entry point:
+
+  Q2. Can we override static methods?
+
+  No. Static methods belong to the class, not individual objects.
+
+  If a child class declares a static method with the same signature, it is called method hiding, not overriding.
+
+  Q3. Can we override private methods?
+
+  No. Private methods are not visible to child classes, so they cannot be overridden.
+
+  Q4. Can we override a method with a different return type?
+
+  Only if the return type is compatible.
+
+  For example, if the parent returns Number, the child can return Integer because Integer is a subclass of Number.
+
+  Q5. Can constructors be overridden?
+
+  No. Constructors are not inherited, so they cannot be overridden. However, constructors can be overloaded.
+
