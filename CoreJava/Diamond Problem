@@ -1,0 +1,111 @@
+
+1. What is Diamond problem?
+
+   The Diamond Problem is a problem in Object-Oriented Programming that occurs when a class inherits from two classes
+   that have a common parent class, creating ambiguity about which parent's method should be called.
+
+   It is commonly associated with multiple inheritance.
+   1. Understand with a diagram
+   Imagine this inheritance structure:
+   A
+
+   Parent class
+
+   display()
+
+   B
+
+   Child class
+
+   C
+
+   Child class
+
+
+   D
+
+   Derived class
+
+
+   - Class B inherits from A.
+   - Class C inherits from A.
+   - Class D inherits from both B and C.
+   Now suppose A has a method called display().
+
+   Both B and C inherit that method.
+
+   When D tries to call display(), there can be ambiguity about which implementation should be used if B and C provide
+   different implementations.
+
+   This is called the Diamond Problem.
+
+   2. Why doesn't Java have this problem with classes?
+   Java does not support multiple inheritance through classes.
+
+   For example, the following is not allowed:
+   class A {
+       void display() {
+           System.out.println("A");
+       }
+   }
+
+   class B extends A { }
+
+   class C extends A { }
+
+   // Not allowed in Java
+   class D extends B, C { }
+
+
+   Java prevents this ambiguity by allowing a class to extend only one class.
+   3. What about interfaces in Java?
+   Java supports multiple inheritance through interfaces.
+
+   However, if two interfaces have the same default method, the implementing class must resolve the conflict.
+   interface A {
+       default void display() {
+           System.out.println("A");
+       }
+   }
+
+   interface B {
+       default void display() {
+           System.out.println("B");
+       }
+   }
+
+   class C implements A, B {
+
+       @Override
+       public void display() {
+           A.super.display();
+           // Or B.super.display();
+       }
+   }
+
+
+   Here, Java forces class C to override display() and explicitly resolve the ambiguity.
+
+   4. Interview-ready answer
+   If an interviewer asks, "What is the Diamond Problem in Java?", you can say:
+
+   "The Diamond Problem occurs in multiple inheritance when a class inherits the same method from two different parent
+   classes, creating ambiguity about which implementation should be executed. Java avoids this problem by not
+   supporting multiple inheritance through classes. However, Java supports multiple inheritance through interfaces,
+   and if two interfaces contain the same default method, the implementing class must override that method to resolve
+   the conflict."
+
+   Important follow-up interview question:
+   Why does Java support multiple inheritance through interfaces but not through classes?
+   Java doesn't support multiple inheritance through classes because it can create ambiguity, particularly when two 
+   parent classes contain methods with the same signature. This can lead to the Diamond Problem. 
+   However, Java supports multiple inheritance through interfaces because interfaces primarily define contracts. 
+   If multiple interfaces provide conflicting default methods, Java forces the implementing class to override the 
+   method and resolve the ambiguity."
+   Remember these three points
+   - A class can extend only one class.
+   - A class can implement multiple interfaces.
+   - If multiple interfaces have conflicting default methods, the implementing class must override the method.
+   
+   One important follow-up: Can an interface extend multiple interfaces in Java? 
+   (Yes, and this is a common interview question.)
