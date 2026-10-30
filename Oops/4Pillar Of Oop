@@ -1,0 +1,203 @@
+
+
+#   Explain the four pillars of OOP with real project examples.
+
+    The four pillars of OOP (Object-Oriented Programming) are:
+    1. Encapsulation
+    2. Inheritance
+    3. Polymorphism
+    4. Abstraction
+
+    1. Encapsulation
+    Definition: Encapsulation means wrapping data (variables) and methods into a single unit (class) and restricting
+    direct access to the data.
+
+    We achieve this using:
+    - private variables.
+    - Public getters and setters.
+    - Controlled access through methods.
+    Real project example: Payment Service
+
+    Suppose we have a payment transaction. We should not allow other classes to directly modify its payment status.
+
+    public class Payment {
+
+        private Long paymentId;
+        private double amount;
+        private String status;
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void updateStatus(String status) {
+            if (status != null &&
+                (status.equals("SUCCESS") ||
+                 status.equals("FAILED"))) {
+                this.status = status;
+            }
+        }
+    }
+
+
+    Here:
+    - Variables are private.
+    - Other classes cannot directly modify the payment status.
+    - We expose controlled access through methods.
+    - We can validate the status before updating it.
+    Interview explanation:
+
+    "In my payment module, I used encapsulation to protect transaction data. For example, payment status was private,
+    and we exposed controlled methods to update it. This helped maintain data integrity and prevent invalid state
+    changes."
+
+    2. Inheritance
+    Definition: Inheritance allows one class to acquire the properties and behaviours of another class.
+
+    We use the extends keyword.
+
+    Real project example: Common payment functionality
+
+    Suppose we have multiple payment types, such as card payment and UPI payment. Both require common payment-related
+    functionality.
+    class Payment {
+
+        protected double amount;
+
+        public void validatePayment() {
+            System.out.println("Validating payment");
+        }
+    }
+
+    class CardPayment extends Payment {
+
+        public void processCardPayment() {
+            validatePayment();
+            System.out.println("Processing card payment");
+        }
+    }
+
+    class UpiPayment extends Payment {
+
+        public void processUpiPayment() {
+            validatePayment();
+            System.out.println("Processing UPI payment");
+        }
+    }
+
+
+    Here:
+    - Payment is the parent class.
+    - CardPayment and UpiPayment are child classes.
+    - Both reuse the common validation functionality.
+    Interview explanation:
+
+    "In my payment module, inheritance can be used to reuse common payment functionality. For example, different
+    payment implementations can inherit common validation logic from a base payment class, reducing code duplication."
+
+    Note: In real Spring Boot projects, composition and interfaces are often preferred over deep inheritance
+    hierarchies.
+
+    3. Polymorphism
+    Definition: Polymorphism means one interface or method can have multiple forms of behaviour.
+
+    There are two types:
+    - Compile-time polymorphism (method overloading).
+    - Runtime polymorphism (method overriding).
+    Real project example: Multiple payment methods
+
+    Imagine users can pay through cards or UPI.
+    interface PaymentService {
+
+        void processPayment(double amount);
+    }
+
+    class CardPaymentService implements PaymentService {
+
+        @Override
+        public void processPayment(double amount) {
+            System.out.println("Processing card payment: " + amount);
+        }
+    }
+
+    class UpiPaymentService implements PaymentService {
+
+        @Override
+        public void processPayment(double amount) {
+            System.out.println("Processing UPI payment: " + amount);
+        }
+    }
+
+
+    Now:
+    PaymentService payment;
+
+    payment = new CardPaymentService();
+    payment.processPayment(1000);
+
+    payment = new UpiPaymentService();
+    payment.processPayment(2000);
+
+
+    Output:
+    Processing card payment: 1000.0
+    Processing UPI payment: 2000.0
+
+
+    The same method processPayment() behaves differently depending on the actual object.
+
+    Interview explanation:
+
+    "In my payment module, polymorphism allows us to process different payment methods using a common interface. For example, CardPaymentService and UpiPaymentService implement the same PaymentService interface but provide their own implementations. This makes the system flexible and easier to extend."
+    4. Abstraction
+    Definition: Abstraction means hiding implementation details and exposing only essential functionality to the user.
+
+    We achieve abstraction using:
+    - Interfaces.
+    - Abstract classes.
+    Real project example: Payment gateway integration
+
+    When a user makes a payment, the application doesn't need to know the internal implementation of every payment gateway.
+
+    It only needs to know how to initiate a payment.
+    interface PaymentGateway {
+
+        void initiatePayment(double amount);
+
+        void refundPayment(String transactionId);
+    }
+
+
+    Implementation:
+    class RazorpayGateway implements PaymentGateway {
+
+        public void initiatePayment(double amount) {
+            System.out.println("Initiating Razorpay payment");
+        }
+
+        public void refundPayment(String transactionId) {
+            System.out.println("Processing Razorpay refund");
+        }
+    }
+
+
+    Another implementation:
+    class StripeGateway implements PaymentGateway {
+
+        public void initiatePayment(double amount) {
+            System.out.println("Initiating Stripe payment");
+        }
+
+        public void refundPayment(String transactionId) {
+            System.out.println("Processing Stripe refund");
+        }
+    }
+
+
+    The calling service interacts with the PaymentGateway interface without worrying about the internal gateway
+    implementation.
+
+    Interview explanation:
+
+    "In my payment project, abstraction can be applied through a PaymentGateway interface. It exposes methods like
+    initiatePayment() and refundPayment(), while hiding the internal implementation details of individual payment gateways."
