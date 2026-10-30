@@ -1,0 +1,163 @@
+Interface vs abstract class — when would you choose each?
+
+In Java, both interfaces and abstract classes are used to achieve abstraction, but they serve different purposes.
+
+The main difference is:
+- Interface: Defines a contract — what a class must do.
+- Abstract class: Provides a common base — what related classes are and what common functionality they can share.
+Let's understand this with examples from your Java backend/payment project.
+1. Interface
+An interface defines a contract that implementing classes must follow.
+
+Use an interface when:
+- Different classes need to follow the same contract.
+- Classes may be unrelated but share common behaviour.
+- You want loose coupling and flexibility.
+- You want to support multiple implementations.
+Example: Payment Gateway
+
+Suppose your application supports Razorpay and Stripe.
+interface PaymentGateway {
+
+    void initiatePayment(double amount);
+
+    void refundPayment(String transactionId);
+}
+
+
+Implementation:
+class RazorpayGateway implements PaymentGateway {
+
+    @Override
+    public void initiatePayment(double amount) {
+        System.out.println("Razorpay payment initiated");
+    }
+
+    @Override
+    public void refundPayment(String transactionId) {
+        System.out.println("Razorpay refund processed");
+    }
+}
+
+class StripeGateway implements PaymentGateway {
+
+    @Override
+    public void initiatePayment(double amount) {
+        System.out.println("Stripe payment initiated");
+    }
+
+    @Override
+    public void refundPayment(String transactionId) {
+        System.out.println("Stripe refund processed");
+    }
+}
+
+
+Now the service can depend on the interface instead of a specific implementation.
+class PaymentService {
+
+    private PaymentGateway gateway;
+
+    PaymentService(PaymentGateway gateway) {
+        this.gateway = gateway;
+    }
+
+    public void pay(double amount) {
+        gateway.initiatePayment(amount);
+    }
+}
+
+
+Why interface here?
+
+Because both gateways provide the same functionality but have different internal implementations.
+
+We can switch implementations without changing the PaymentService business logic.
+
+This is also an example of loose coupling and dependency injection.
+2. Abstract class
+An abstract class is used when multiple related classes share common properties and behaviour, but some functionality needs to be implemented differently.
+
+Use an abstract class when:
+- You want to share common code.
+- You want common instance variables.
+- You want constructors.
+- You want to provide some implemented methods and leave others abstract.
+Example: Payment Processing
+abstract class Payment {
+
+    protected double amount;
+    protected String transactionId;
+
+    public Payment(double amount, String transactionId) {
+        this.amount = amount;
+        this.transactionId = transactionId;
+    }
+
+    // Common functionality
+    public void validatePayment() {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Invalid amount");
+        }
+    }
+
+    // Different implementations
+    public abstract void processPayment();
+}
+
+
+Child classes:
+class CardPayment extends Payment {
+
+    public CardPayment(double amount, String id) {
+        super(amount, id);
+    }
+
+    @Override
+    public void processPayment() {
+        System.out.println("Processing card payment");
+    }
+}
+
+class UpiPayment extends Payment {
+
+    public UpiPayment(double amount, String id) {
+        super(amount, id);
+    }
+
+    @Override
+    public void processPayment() {
+        System.out.println("Processing UPI payment");
+    }
+}
+
+
+Why abstract class here?
+
+Both payment types share:
+- Amount.
+- Transaction ID.
+- Payment validation logic.
+But their payment processing logic differs.
+
+Instead of duplicating common code, we keep it in the abstract parent class.
+
+
+
+5. Interview-ready answer
+If the interviewer asks,
+ "When would you choose an interface over an abstract class?"
+
+"I would choose an interface when I want to define a contract that multiple potentially unrelated classes can
+implement. For example, in a payment application, I can define a PaymentGateway interface with initiatePayment()
+and refundPayment() methods, and different gateway implementations can provide their own logic.
+
+I would choose an abstract class when multiple related classes share common state and implementation.
+For example, different payment types can extend a common Payment abstract class that contains transaction
+details and common validation logic.
+
+So, I generally prefer interfaces for loose coupling and flexibility, and abstract classes when I need to share
+common state and behaviour."
+
+
+
